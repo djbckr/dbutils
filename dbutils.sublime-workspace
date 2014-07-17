@@ -1,0 +1,1185 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"to",
+				"totalRows"
+			],
+			[
+				"ctr",
+				"cTrcPurgeMaxRows"
+			],
+			[
+				"exc",
+				"exception_init"
+			],
+			[
+				"var",
+				"varchar2"
+			],
+			[
+				"except",
+				"exception_init"
+			],
+			[
+				"table",
+				"tablenotexists"
+			],
+			[
+				"Whir",
+				"WhirlpoolRW"
+			],
+			[
+				"whi",
+				"whirlpool"
+			],
+			[
+				"commons",
+				"commons-codec"
+			],
+			[
+				"inputst",
+				"inputstream"
+			],
+			[
+				"output",
+				"outputstream"
+			],
+			[
+				"dbms",
+				"dbms_lob"
+			],
+			[
+				"pro",
+				"procedure	procedure..."
+			],
+			[
+				"int_get_",
+				"int_get_media_info_raw"
+			],
+			[
+				"Strin",
+				"StringBuilder"
+			],
+			[
+				"proce",
+				"procedures"
+			],
+			[
+				"getC",
+				"getCfgTimestamp"
+			],
+			[
+				"getcf",
+				"getCfgNumber"
+			],
+			[
+				"getcfg",
+				"getCfgString"
+			],
+			[
+				"setc",
+				"setCfgString"
+			],
+			[
+				"setcf",
+				"setCfgTimestamp"
+			],
+			[
+				"crea",
+				"create_date"
+			],
+			[
+				"er",
+				"vErr"
+			],
+			[
+				"cntr",
+				"cntrytbl"
+			],
+			[
+				"usr",
+				"usr_id"
+			],
+			[
+				"for",
+				"foreign"
+			],
+			[
+				"compa",
+				"company_id"
+			],
+			[
+				"getnod",
+				"getNodeName"
+			],
+			[
+				"curr",
+				"currency"
+			],
+			[
+				"num",
+				"num_to_frac"
+			],
+			[
+				"proc",
+				"processTD"
+			],
+			[
+				"cur",
+				"curRow"
+			],
+			[
+				"domNo",
+				"domNode"
+			],
+			[
+				"domNode",
+				"domNodeList"
+			],
+			[
+				"cre",
+				"createTemporary"
+			],
+			[
+				"sr",
+				"src_offset"
+			],
+			[
+				"cr_file_n",
+				"cr_file_name2"
+			],
+			[
+				"archi",
+				"archived_flag"
+			],
+			[
+				"del",
+				"delimiter_in"
+			],
+			[
+				"st",
+				"stringToSplit_in"
+			],
+			[
+				"spli",
+				"split_string_internal"
+			],
+			[
+				"str",
+				"str2"
+			],
+			[
+				"code",
+				"code2"
+			],
+			[
+				"kuw",
+				"kuwajibika_app"
+			],
+			[
+				"rwaccount",
+				"rwaccount_ts"
+			],
+			[
+				"api",
+				"api_rule_id"
+			],
+			[
+				"Zip",
+				"ZipUtil"
+			],
+			[
+				"app",
+				"appserver"
+			],
+			[
+				"vfil",
+				"vFilename"
+			],
+			[
+				"ts",
+				"trsp"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"wor",
+				"workbook_id"
+			],
+			[
+				"work",
+				"workbook_id"
+			],
+			[
+				"errr",
+				"error_msg_in"
+			],
+			[
+				"oper",
+				"operation_name_in"
+			],
+			[
+				"op",
+				"operation_fields"
+			],
+			[
+				"req",
+				"require_filter"
+			],
+			[
+				"set",
+				"set_source"
+			],
+			[
+				"contact",
+				"contact_id"
+			],
+			[
+				"agen",
+				"agency_id"
+			],
+			[
+				"getstr",
+				"getStringArray"
+			],
+			[
+				"rege",
+				"regexp_multiline_in"
+			],
+			[
+				"exe",
+				"exception"
+			],
+			[
+				"the",
+				"theAction"
+			],
+			[
+				"colu",
+				"column_name"
+			],
+			[
+				"cr",
+				"crColumns"
+			],
+			[
+				"g",
+				"gTable"
+			],
+			[
+				"gs",
+				"gSchema"
+			],
+			[
+				"gS",
+				"gSchema"
+			],
+			[
+				"sys_pri",
+				"SYS_PRIVILEGE"
+			],
+			[
+				"service_",
+				"service_procedure_in"
+			],
+			[
+				"ser",
+				"service_name_in"
+			],
+			[
+				"fiel",
+				"fields_in"
+			],
+			[
+				"serv",
+				"service_name_in"
+			],
+			[
+				"sv",
+				"sv_utility"
+			],
+			[
+				"field",
+				"field_name_in"
+			],
+			[
+				"down",
+				"download_template"
+			],
+			[
+				"in",
+				"input"
+			],
+			[
+				"VARCHAR",
+				"VARCHAR2"
+			],
+			[
+				"bin",
+				"binary_integer"
+			],
+			[
+				"file_n",
+				"file_name_in"
+			],
+			[
+				"mim",
+				"mime_type"
+			],
+			[
+				"con",
+				"contact_id"
+			],
+			[
+				"cli",
+				"client_id"
+			],
+			[
+				"cl",
+				"clientID"
+			],
+			[
+				"r_ty",
+				"r_type_in"
+			],
+			[
+				"clien",
+				"client_id"
+			],
+			[
+				"vpl",
+				"vPlacementType"
+			],
+			[
+				"vpla",
+				"vPlacementStatus"
+			],
+			[
+				"pla",
+				"placement_size"
+			],
+			[
+				"get",
+				"get_filter"
+			],
+			[
+				"au",
+				"AUTONOMOUS_TRANSACTION"
+			],
+			[
+				"v_fil",
+				"v_filename"
+			],
+			[
+				"contac",
+				"contact_id"
+			],
+			[
+				"if",
+				"if	if ... end"
+			],
+			[
+				"fil",
+				"fileName"
+			],
+			[
+				"file",
+				"fileSize"
+			],
+			[
+				"impo",
+				"importedNode"
+			],
+			[
+				"client",
+				"client_id"
+			],
+			[
+				"workbo",
+				"workbook_name"
+			],
+			[
+				"sav",
+				"save_timestamp"
+			],
+			[
+				"up",
+				"upload_timestamp"
+			],
+			[
+				"autho",
+				"authorization_field_rules"
+			],
+			[
+				"api_op",
+				"api_operation"
+			],
+			[
+				"ge",
+				"getNumber"
+			],
+			[
+				"rotation_id",
+				"rotation_id"
+			],
+			[
+				"rota",
+				"rotation_id"
+			],
+			[
+				"tim",
+				"timezone_n"
+			],
+			[
+				"camp",
+				"campaign_id"
+			],
+			[
+				"campain",
+				"campaigns"
+			],
+			[
+				"ui_get_",
+				"UI_GET_TIMEZONE"
+			],
+			[
+				"rotat",
+				"rotation_id"
+			],
+			[
+				"add",
+				"add_field"
+			],
+			[
+				"conta",
+				"contact_id"
+			],
+			[
+				"rot",
+				"rotation_id"
+			],
+			[
+				"rotatio",
+				"rotations"
+			],
+			[
+				"campaign",
+				"campaign_id"
+			],
+			[
+				"campai",
+				"campaign_id"
+			],
+			[
+				"rotation",
+				"rotation_id"
+			],
+			[
+				"lan",
+				"lang_id"
+			],
+			[
+				"too",
+				"tooltip"
+			],
+			[
+				"lab",
+				"label"
+			],
+			[
+				"err",
+				"error_msg"
+			],
+			[
+				"erro",
+				"error_msg"
+			],
+			[
+				"desc",
+				"description"
+			],
+			[
+				"lang",
+				"language_in"
+			],
+			[
+				"field_na",
+				"field_name_in"
+			],
+			[
+				"auth",
+				"AUTHORIZATION_RULES"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "stdinst.sql",
+			"settings":
+			{
+				"buffer_size": 2846,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/djbckr/Development/github/pljson/README.md",
+			"settings":
+			{
+				"buffer_size": 309,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/djbckr/Development/github/pljson/pljson-library.html",
+			"settings":
+			{
+				"buffer_size": 111663,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pljson/README.md",
+			"settings":
+			{
+				"buffer_size": 65961,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/jshint.sublime-build",
+	"command_palette":
+	{
+		"height": 287.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Create Package File"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"js",
+				"JSHint"
+			],
+			[
+				"jsh",
+				"JSHint: Set Linting Preferences"
+			],
+			[
+				"jshi",
+				"JSHint"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"al",
+				"Align Tabular"
+			],
+			[
+				"",
+				"Align Tabular"
+			],
+			[
+				"ali",
+				"Align Tabular"
+			],
+			[
+				"align",
+				"Align Tabular"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control:inst",
+				"Package Control: Install Package"
+			],
+			[
+				"high",
+				"SublimeHighlight: convert to HTML"
+			],
+			[
+				"HIGH",
+				"SublimeHighlight: copy to clipboard as RTF"
+			],
+			[
+				"ex",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"exp",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"expo",
+				"Export to HTML: Show Export Menu"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"prac",
+				"Package Control: Install Package"
+			],
+			[
+				"copy",
+				"SublimeHighlight: copy to clipboard as HTML"
+			],
+			[
+				"hi",
+				"SublimeHighlight: copy to clipboard as RTF"
+			],
+			[
+				"packag",
+				"Package Control: Install Package"
+			],
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
+			[
+				"Snippet: be",
+				"Snippet: begin ... end"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Prototype"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 219.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/djbckr/Development/github/dbutils/trc/trc.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/trc/trcinst.sql",
+		"/Users/djbckr/Development/github/dbutils/README.md",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/BL_AUTH.sql",
+		"/Users/djbckr/Development/github/dbutils/trc/trc.package.sql",
+		"/Users/djbckr/Development/github/dbutils/utl/utl.package.sql",
+		"/Users/djbckr/Development/github/dbutils/install.sql",
+		"/Users/djbckr/Development/github/dbutils/install_multitenant.sql",
+		"/Users/djbckr/Development/github/dbutils/metaphone/metaphoneinst.sql",
+		"/Users/djbckr/Development/github/dbutils/whirlpool/WhirlpoolRW.sql.java",
+		"/Users/djbckr/Development/github/dbutils/apache/commons/codec/ApacheCommonsCodec.sql",
+		"/Users/djbckr/Development/github/dbutils/exif/exif.package.sql",
+		"/Users/djbckr/Development/github/dbutils/exif/exifinst.sql",
+		"/Users/djbckr/Development/github/dbutils/exif/ExifTool.sql.java",
+		"/Users/djbckr/Development/github/dbutils/cfg/cfginst.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/gson224.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/pljsoninst.sql",
+		"/Users/djbckr/Development/github/dbutils/exif/exif.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/whirlpool/whirlpool.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/zip/Zip.sql.java",
+		"/Users/djbckr/Development/RubyWillow/database/utl.package.sql",
+		"/Users/djbckr/Development/RubyWillow/database/utility.sql.java",
+		"/Users/djbckr/Development/github/dbutils/whirlpool/whirlpoolinst.sql",
+		"/Users/djbckr/Development/github/dbutils/utl/Utility.sql.java",
+		"/Users/djbckr/Development/github/dbutils/pljson/pljson.typbodies.sql",
+		"/Users/djbckr/Development/github/dbutils/tblaudit/tblauditinst.sql",
+		"/Users/djbckr/Development/github/dbutils/zip/zipinst.sql",
+		"/Users/djbckr/Development/github/dbutils/utl/utlinst.sql",
+		"/Users/djbckr/Development/github/dbutils/bool/boolinst.sql",
+		"/Users/djbckr/Development/github/dbutils/zip/zip.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/zip/zip.package.sql",
+		"/Users/djbckr/Development/github/dbutils/utl/utl.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/whirlpool/whirlpool.package.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/pljson.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/RefCursorToJson.sql.java",
+		"/Users/djbckr/Development/github/dbutils/pljson/ParseJson.sql.java",
+		"/Users/djbckr/Development/github/dbutils/pljson/MakeJson.sql.java",
+		"/Users/djbckr/Development/github/dbutils/pljson/PLJSON.sql.java",
+		"/Users/djbckr/Development/github/dbutils/whirlpool/Whirlpool.sql.java",
+		"/Users/djbckr/Development/github/dbutils/pljson/pljson.package.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/pljson.types.sql",
+		"/Users/djbckr/Development/github/dbutils/tblaudit/table_audit.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/tblaudit/table_audit.package.sql",
+		"/Users/djbckr/Development/github/dbutils/pljson/PLJSON.java",
+		"/Users/djbckr/Development/github/dbutils/zipper/zipinst.sql",
+		"/Users/djbckr/Development/github/dbutils/zipper/zip.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/zipper/Zip.sql.java",
+		"/Users/djbckr/Development/github/dbutils/zipper/zip.package.sql",
+		"/Users/djbckr/Development/github/dbutils/zipper/Zipper.sql.java",
+		"/Users/djbckr/Development/github/dbutils/zipper/zipper.package.sql",
+		"/Users/djbckr/Development/github/dbutils/zipper/zipper.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/bool/bool.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/bool/bool.package.sql",
+		"/Users/djbckr/Development/github/dbutils/cfg/cfg.pkgbody.sql",
+		"/Users/djbckr/Development/github/dbutils/cfg/cfg.package.sql",
+		"/Users/djbckr/Development/RubyWillow/database/gson/gson224.jar.txt",
+		"/Users/djbckr/Downloads/google-gson-2.2.4/gson-2.2.4.jar",
+		"/Users/djbckr/Downloads/google-gson-2.2.4-release.zip",
+		"/Users/djbckr/Downloads/commons-codec-1.6/something.txt",
+		"/Users/djbckr/Downloads/commons-codec-1.6/commons-codec-1.6.jar",
+		"/Users/djbckr/Development/RubyWillow/database/zipper.sql.java",
+		"/Users/djbckr/Downloads/commons-codec-1.9/commons-codec-1.9.jar",
+		"/Users/djbckr/Development/RubyWillow/database/zipper.sql",
+		"/Users/djbckr/Downloads/commons-codec-1.9-src/src/main/java/org/apache/commons/codec/StringEncoder.java",
+		"/Users/djbckr/Downloads/commons-codec-1.9-src/src/main/java/org/apache/commons/codec/language/DoubleMetaphone.java",
+		"/Users/djbckr/Downloads/commons-codec-1.9-src/src/main/java/org/apache/commons/codec/EncoderException.java",
+		"/Users/djbckr/Development/RubyWillow/database/rw-db.sublime-project",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/functions/UI_AUTHORIZE.sql",
+		"/Users/djbckr/Development/RubyWillow/database/bool.pkgbody.sql",
+		"/Users/djbckr/Development/RubyWillow/database/bool.package.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/i18n.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/sandbox/dbecker/gather_table_stats.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/API_PROCESSOR_INT2.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/API_PROCESSOR2.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/test.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/countries_and_their_currencies.sql",
+		"/Users/djbckr/Desktop/txt1.txt",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/backup.sql",
+		"/Users/djbckr/Desktop/trythis2.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/countries_and_their_currencies.py",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/test_result.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/test_result.txt",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/work",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/def/tables.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/country_language_currency.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/language.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/countries.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/country_def.sql",
+		"/Users/djbckr/Desktop/trythis1.sql",
+		"/Users/djbckr/Desktop/trythis",
+		"/Users/djbckr/Applications/Adempiere-370/data/djb_pg.dmp",
+		"/Users/djbckr/Downloads/RandomNumbers",
+		"/Users/djbckr/Downloads/Open_ModelSphere_971/modelsphere.bat",
+		"/Users/djbckr/Downloads/KEYDB.cfg",
+		"/Users/djbckr/Development/workspace/rand/randomdata1402754137222",
+		"/Users/djbckr/Development/workspace/rand/randomdata1402754001091.bin",
+		"/Users/djbckr/Development/workspace/rand/randomdata1402722513551.bin",
+		"/Users/djbckr/Development/workspace/rand/randomdata1402722470904.bin",
+		"/Users/djbckr/Development/workspace/rand/randomdata1402722511021.bin",
+		"/Users/djbckr/Development/mplx/__src-mojoadmin-MOJODB-2014060908551854.sql",
+		"/Users/djbckr/Applications/Adempiere-370/data/pg_adempiere.sql",
+		"/Users/djbckr/Applications/dmplog2.txt",
+		"/Users/djbckr/Applications/dmpfile.txt",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/output.txt",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/countries_and_their_currencies.xml",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/tickets/MUI-121/release.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/PROXY.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/UTIL_STRING.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/packages/UTIL_STRING.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/tickets/MUI-109/release.sh",
+		"/Users/djbckr/Development/mplx/__src-mojoadmin-MOJODB-2014060210135967.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/BL_CREATIVE.sql",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/appserver/html/js/lib/vkgrid_largedata/vkgrid.js",
+		"/Users/djbckr/Perforce/mediaplex/dbecker_windoze/mediaplex/Applications-dev/mojodb/mojoadmin/package-bodies/API_UTIL.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/country.sql",
+		"/Users/djbckr/Downloads/cnv.js",
+		"/Users/djbckr/Downloads/countries.json",
+		"/Users/djbckr/Downloads/script.sql",
+		"/Users/djbckr/Development/gnucash-2.6.3/src/backend/dbi/gnc-backend-dbi.h",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/setup.sql",
+		"/Users/djbckr/gnucash.xml",
+		"/Users/djbckr/Development/gnucash-2.6.3/src/backend/dbi/gnc-backend-dbi.c",
+		"/Users/djbckr/Development/gnucash-2.6.3/src/README.modules",
+		"/Users/djbckr/Development/gnucash-2.6.3/src/README",
+		"/Users/djbckr/Development/ledgersmb/sql/Pg-database.sql",
+		"/Users/djbckr/Development/RubyWillow/kuwajibika/countries.js",
+		"/Users/djbckr/Development/workspace/ConvertMojoFromOracleToPostgres/pgscript/datatables.sql",
+		"/Users/djbckr/Development/workspace/ConvertMojoFromOracleToPostgres/pgscript/fkconstraints.sql"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"<span class=\"syntax-COMMENT1\">",
+			"<span class=\"syntax-OPERATOR\">",
+			"<span class=\"syntax-KEYWORD1\">",
+			"<span class=\"syntax0\">",
+			"</span>",
+			"<span class=\"monospc\">",
+			"lognorm",
+			"gSessionLogLevel",
+			"log_lvl_setting",
+			"gPurgeMaxRows",
+			"owa",
+			"y.",
+			"text",
+			"\\^",
+			"^",
+			"text",
+			"@",
+			".Whirlpool.",
+			"Utility",
+			"utl",
+			"2012",
+			"PLJSON.",
+			"PLJSON",
+			"PLJSON.getDbConn()",
+			"PLJSON",
+			"PLJSON.doOutput",
+			"PLJSON",
+			"PLJSON.getDbConn()",
+			"PLJSON",
+			"PLJSONU",
+			"getdb",
+			"zipper",
+			"Utility",
+			"utl",
+			"fmtError",
+			"getconn",
+			" ",
+			"javaLoop",
+			"sb.",
+			"\\\\n",
+			"getoraclearray",
+			"oracle.sql.BLOB",
+			"BUFF_SIZE",
+			"varchar2(32000)",
+			"rslt",
+			"\"",
+			"RubyWillow",
+			"java",
+			"manageShadow",
+			"resolveObjects",
+			"DBECKER",
+			"ruby",
+			"\"RubyWillow\".",
+			"p.",
+			"'P'",
+			"	",
+			" ",
+			" Q",
+			"Q",
+			"rubywillow",
+			"p",
+			"/*+ result_cache */\n         ",
+			"vRrslt",
+			"vAny",
+			"cfg",
+			"getCfgTimestamp",
+			"setCfgTimestamp",
+			"timestamp",
+			"getCfgTimestamp",
+			"x",
+			"\"",
+			"512",
+			",$",
+			"'),('",
+			"\"",
+			"'\\{(.*)\\}'",
+			"''",
+			"'\\{(.*)\\}'",
+			"''",
+			"\"",
+			"Amerika",
+			"\"",
+			"REFERENCES",
+			"FOREIGN KEY",
+			"UNIQUE",
+			"PRIMARY KEY",
+			"CONSTRAINT",
+			"\"",
+			"company",
+			"vCnt",
+			"cmpny",
+			"ONLY ",
+			"parseOutput",
+			"cJsonArray",
+			"data",
+			"cyprus",
+			"Bahama",
+			"Akrot",
+			"Abkh",
+			"tristan",
+			"transnis",
+			"ossetia",
+			"georgia",
+			"eustat",
+			"sahra",
+			"saba",
+			"nagorno",
+			"korea",
+			"gambia",
+			"timor",
+			"burma",
+			"\"\"",
+			"^\"\"",
+			"insert into tcurrency values ",
+			"}'",
+			"q'{",
+			"\\d,",
+			"{ }",
+			"xyz",
+			"\\[",
+			"India",
+			"Aruba",
+			"Ecuador",
+			"table>",
+			"<td",
+			"country_languages",
+			"country_currencies",
+			"countries"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"",
+			"splitString('\\1',',')",
+			"strarray('\\1')",
+			"strarray(\\1)",
+			"END;\\n$$$$\\nALTER \\1",
+			"END;\\n$$\\nALTER \\1",
+			"comment on column \"\\1\" is \\2",
+			"comment on table \"\\1\" is \\2",
+			" CHECK (\\1)\\n",
+			" CHECK (\\1)",
+			"",
+			"lt(\\1)",
+			"submit_creative",
+			"get_creative_sets",
+			"submit_creative_assignments",
+			"get_creative_details",
+			"??",
+			"adm_emails",
+			"adm_dualpass_priv",
+			"adm_domain_list_type",
+			"adm_domains",
+			"adm_delivery_list",
+			"adm_corr_groups",
+			"adm_channels",
+			"ADM_BROWSERS_LIST",
+			"ADM_BROWSERS"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "stdinst.sql",
+					"settings":
+					{
+						"buffer_size": 2846,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2820,
+								2820
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/User/Oracle-master/PL_SQL (Oracle).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 361.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/djbckr/Development/github/pljson/README.md",
+					"settings":
+					{
+						"buffer_size": 309,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/djbckr/Development/github/pljson/pljson-library.html",
+					"settings":
+					{
+						"buffer_size": 111663,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								111663
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 314.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pljson/README.md",
+					"settings":
+					{
+						"buffer_size": 65961,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5514,
+								5514
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true,
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 435.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 239.0
+	},
+	"output.git":
+	{
+		"height": 106.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 303.0,
+	"status_bar_visible": true
+}
