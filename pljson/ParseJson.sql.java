@@ -29,10 +29,20 @@ package net.rubywillow;
 
 */
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+
 import java.io.Reader;
+
 import java.sql.Array;
 import java.sql.Clob;
+import java.sql.Connection;
 import java.sql.Struct;
+
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -41,13 +51,6 @@ import oracle.sql.ArrayDescriptor;
 import oracle.sql.STRUCT;
 import oracle.sql.StructDescriptor;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
-
 public class ParseJson
 {
 
@@ -55,9 +58,20 @@ public class ParseJson
   ////    parseJson :: from a JSON string to a tree of Oracle Objects    /////////
   ////////////////////////////////////////////////////////////////////////////////
 
+  private static Connection conn;
+  private static String trueVal;
+  private static String falseVal;
+
   // parse a JSON string into an object tree, and return
   // the tree as a tree of psonElement
-  public static Struct parseJson( Clob json, String[] err ) {
+  public static Struct parseJson (
+        Clob json,
+        String trueval,
+        String falseval,
+        String[] err )
+  {
+    trueVal = trueval;
+    falseVal = falseval;
     Struct rslt = null;
     err[0] = null;
     Reader reader = null;
@@ -65,6 +79,8 @@ public class ParseJson
       reader = json.getCharacterStream();
       // the easy part; get GSON to parse the string
       JsonElement j = new JsonParser().parse(reader);
+
+      conn = Utility.getConn();
 
       // the hard part: recursively walk the tree
       // and return the Oracle type structures
@@ -105,7 +121,7 @@ public class ParseJson
 
     // construct the Array object to be used in psonArray
     Array tuple = null;
-    tuple = new ARRAY(ArrayDescriptor.createDescriptor(PLJSON.psonElements, Utility.getConn()), Utility.getConn(), elementTbl);
+    tuple = new ARRAY(ArrayDescriptor.createDescriptor(PLJSON.psonElements, conn), conn, elementTbl);
 
     // construct the psonArray object
     Object[] z = new Object[2];
@@ -134,7 +150,7 @@ public class ParseJson
 
     // construct the Array object to be used in psonObject
     Array tuple = null;
-    tuple = new ARRAY(ArrayDescriptor.createDescriptor(PLJSON.psonObjectEntries, Utility.getConn()), Utility.getConn(), objectEntryTbl);
+    tuple = new ARRAY(ArrayDescriptor.createDescriptor(PLJSON.psonObjectEntries, conn), conn, objectEntryTbl);
 
     // construct the psonObject object
     Object[] z = new Object[2];
@@ -165,7 +181,7 @@ public class ParseJson
     // " " to indicate FALSE
     Object[] o = new Object[2];
     o[0] = PLJSON.cBoolean;
-    o[1] = j.getAsBoolean() ? "*" : " ";
+    o[1] = j.getAsBoolean() ? trueVal : falseVal;
     return makeStruct(o, PLJSON.psonBoolean);
   }
 
@@ -195,7 +211,7 @@ public class ParseJson
   // now that we have the array of objects and a type name, we can
   // build the Oracle SQLType object...
   private static Struct makeStruct( Object[] o, String strctName ) throws Exception {
-    return new STRUCT(StructDescriptor.createDescriptor(strctName, Utility.getConn()), Utility.getConn(), o);
+    return new STRUCT(StructDescriptor.createDescriptor(strctName, conn), conn, o);
   }
 
 }

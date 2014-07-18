@@ -9,7 +9,6 @@ This file essentially does what the loadjava tool does.
   - Split the JAR into individual class files
   - Load the class files into the "CREATE$JAVA$LOB$TABLE"
   - Call CREATE JAVA... for each of the class files
-  - Compile the class files
 
 */
 

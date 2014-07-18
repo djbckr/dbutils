@@ -58,8 +58,14 @@ public class RefCursorToJson {
    * rather little memory and is pretty fast all in all.
    */
 
-  public static Clob refCursorToJson ( ResultSet rsltSet, String rtName,
-      int compact, int pretty, String dateFormat, String[] err) {
+  public static Clob refCursorToJson (
+        ResultSet rsltSet,
+        String rtName,
+        int compact,
+        int pretty,
+        String dateFormat,
+        String[] err )
+  {
 
     Clob rslt = null;
 
@@ -95,8 +101,11 @@ public class RefCursorToJson {
     return rslt;
   }
 
-  private static void processResultSet(OracleResultSet rsltSet, int compact,
-      SimpleDateFormat sdf) throws Exception {
+  private static void processResultSet (
+        OracleResultSet rsltSet,
+        int compact,
+        SimpleDateFormat sdf ) throws Exception
+  {
 
     ResultSetMetaData md = rsltSet.getMetaData();
     String[] cols = new String[md.getColumnCount()];
@@ -144,8 +153,11 @@ public class RefCursorToJson {
     out.endArray(); // outer array close
   }
 
-  private static void processObject(Object obj, int compact,
-      SimpleDateFormat sdf) throws Exception {
+  private static void processObject (
+        Object obj,
+        int compact,
+        SimpleDateFormat sdf ) throws Exception
+  {
 
     // based on the canonical class name, get the data into
     // a JSON-compatible format
@@ -288,8 +300,11 @@ public class RefCursorToJson {
   }
 
   // nested array
-  private static void processArray(ARRAY obj, int compact, SimpleDateFormat sdf)
-      throws Exception {
+  private static void processArray (
+        ARRAY obj,
+        int compact,
+        SimpleDateFormat sdf ) throws Exception
+  {
 
     // An array is just a result set. The first column is just an index number,
     // the second column is the actual content we want
@@ -304,8 +319,11 @@ public class RefCursorToJson {
   }
 
   // nested object
-  private static void processSQLObject(STRUCT obj, int compact,
-      SimpleDateFormat sdf) throws Exception {
+  private static void processSQLObject (
+        STRUCT obj,
+        int compact,
+        SimpleDateFormat sdf ) throws Exception
+  {
 
     // get information about the object
     ResultSetMetaData smd = obj.getDescriptor().getMetaData();
@@ -330,8 +348,7 @@ public class RefCursorToJson {
 
   // take binary data and make it hexadecimal
   private static String bytesToHex(byte[] raw) {
-    char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A',
-        'B', 'C', 'D', 'E', 'F' };
+    char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     char[] hexChars = new char[raw.length * 2];
     int v;
     for (int j = 0; j < raw.length; j++) {

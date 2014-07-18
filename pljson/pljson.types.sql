@@ -1,4 +1,3 @@
-
 create type pljsonElement oid '96590F8B68C0B283BF683389525F318F' authid current_user is object (
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
@@ -69,7 +68,31 @@ create type pljsonElement oid '96590F8B68C0B283BF683389525F318F' authid current_
 
   -- if this is a boolean, returns its value, otherwise return NULL
   member function getBoolean
-    return boolean
+    return boolean,
+
+  -- using this element as the root, create a JSON document.
+  -- the returned CLOB is temporary and should eventually
+  -- be freed using dbms_lob.freeTemporary()
+  member function makeJSON
+    ( self in out nocopy pljsonElement,
+      pretty in boolean default false )
+    return CLOB,
+
+  -- parse a JSON document and get a root element.
+  static function parseJSON
+    ( json  in  CLOB )
+    return pljsonElement,
+
+  -- pass a ref-cursor and get a JSON document
+  -- the returned CLOB is temporary and should eventually
+  -- be freed using dbms_lob.freeTemporary()
+  static function refCursorToJson
+    ( input    in sys_refcursor,
+      compact  in boolean  default false,
+      rootName in varchar2 default 'json',
+      pretty   in boolean  default false,
+      dateFmt  in varchar2 default 'yyyy-MM-dd HH:mm:ss' )
+    return CLOB
 
 ) not final not instantiable;
 /
@@ -148,8 +171,11 @@ create type pljsonObject oid '360141B0610AD5BB7AAB8A56C8943AB4' authid current_u
 */
 
   /* a JSON object has a table of Object Entries */
-
   tuple  pljsonObjectEntries,
+
+  constructor function pljsonObject
+    ( self in out nocopy pljsonObject )
+    return self as result,
 
   member function getIndex
     ( self   in out nocopy pljsonObject,
@@ -224,8 +250,11 @@ create type pljsonArray oid '14BECEF1F6E64EBA45635485EB426F32' authid current_us
 */
 
   /* a JSON array has a table of Elements */
-
   elements  pljsonElements,
+
+  constructor function pljsonArray
+    ( self in out nocopy pljsonArray )
+    return self as result,
 
   member procedure addElement
     ( self    in out nocopy pljsonArray,
@@ -311,6 +340,11 @@ create type pljsonNull oid 'FB2A64820A8665856C506B7CCADB3B55' authid current_use
 
 */
   -- concrete element value of Null
+
+  constructor function pljsonNull
+    ( self in out nocopy pljsonNull )
+    return self as result
+
 ) final instantiable;
 /
 
@@ -343,7 +377,13 @@ create type pljsonString oid 'C1068B34CE7EFE2506837A1669EA8F42' authid current_u
 
 */
   -- concrete primitive value of String
-  value    varchar2(32000 char)
+  value    varchar2(32760 char),
+
+  constructor function pljsonString
+    ( self in out nocopy pljsonString,
+      val  in varchar2 )
+    return self as result
+
 ) final instantiable;
 /
 
@@ -376,7 +416,13 @@ create type pljsonNumber oid '68DB9E5A9341332C951AA0C463AB6532' authid current_u
 
 */
   -- concrete primitive value of Number
-  value    number
+  value    number,
+
+  constructor function pljsonNumber
+    ( self in out nocopy pljsonNumber,
+      val  in number )
+    return self as result
+
 ) final instantiable;
 /
 
@@ -409,10 +455,15 @@ create type pljsonBoolean oid 'D68D68058D04CBE0F1499A6216A5E29D' authid current_
 
 */
   -- concrete primitive value of Boolean
-  val    varchar2(1),    -- anything other than '*' is false
+  bval   varchar2(1),    -- the value stored here is defined in the BOOL package
 
   member function value
-    return boolean       -- but use this function to be sure
+    return boolean,      -- use this function to be sure of the correct value
+
+  constructor function pljsonBoolean
+    ( self in out nocopy pljsonBoolean,
+      val  in boolean )
+    return self as result
 
 ) final instantiable;
 /

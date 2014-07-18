@@ -28,109 +28,34 @@ create or replace package pljson authid current_user is
 
 */
 
---------------------------------------------------------------------------------
-/*  parseJson
-
-    supply a JSON document (as a VARCHAR2 or a CLOB)
-    and get back an object tree that represents the document
-
-*/
-  function parseJson
-    ( json  in  CLOB )
-    return pljsonElement;
+/* This package is not intended to be called directly. It is used by the pljsonElement object */
 
 --------------------------------------------------------------------------------
-/*  makeJson
-
-    supply an object tree that represents what you want, and
-    get back a JSON document as a CLOB. Specify pretty to
-    get the document in a more readable format.
-
-    The returned CLOB should be freed using DBMS_LOB.FREETEMPORARY();
-
-*/
-  function makeJson
-    ( pljson in pljsonElement,
-      pretty in boolean default false )
-    return CLOB;
-
+function parseJson
+  ( json     in  CLOB,
+    trueval  in  varchar2,
+    falseval in  varchar2,
+    err      out varchar2 )
+  return pljsonElement
+is language java name 'net.rubywillow.ParseJson.parseJson( java.sql.Clob, java.lang.String, java.lang.String, java.lang.String[] ) return java.sql.Struct';
 --------------------------------------------------------------------------------
-/*  refCursorToJson
-
-    supply a ref-cursor that represents what you want, and
-    get back a JSON document as a CLOB. The returned data is an object
-    with an array of arrays. Datatypes supported are: any CHAR/VARCHAR type,
-    any NUMBER type, DATE and TIMESTAMP, nested CURSORs, and UDT's.
-
-    TIMESTAMP WITH [LOCAL] TIME ZONE are not supported. Since JSON doesn't natively
-    support dates, it's a good idea to use TO_CHAR(...) in your SELECT statment for
-    any DATE/TIMESTAMP, but you can supply a dateFmt in Java SimpleDateFormat syntax
-    if you like.
-
-    The standard format returned is:
-
-    {"json":[row1,row2,rowX]}
-
-    where each row is an array of column values in the form of:
-    [{"columnName":jsonValue},{"columnName":jsonValue}]
-
-    Specify compact to return the data in a more compact format, where
-    the first row is an array of column names, and each subsequent row
-    is an array of values corresponding to the specified columns:
-
-    ["columnName","columnName",...],[jsonValue,jsonValue,...],[jsonValue,jsonValue,...]
-
-    Specify pretty to get the document in a more readable format.
-
-    The returned CLOB should be freed using DBMS_LOB.FREETEMPORARY();
-
-*/
-  function refCursorToJson
-    ( input    in sys_refcursor,
-      compact  in boolean  default false,
-      rootName in varchar2 default 'json',
-      pretty   in boolean  default false,
-      dateFmt  in varchar2 default 'yyyy-MM-dd HH:mm:ss' )
-    return CLOB;
-
-/******************************************************************************
-    Most of the following functions are due to the restrictive nature of
-    PL/SQL regarding recursive references. It would be nice to have true
-    abstract classes and self referencing types, but SQL doesn't allow it
-    for good reason.
-
-    The following createXxx functions are the "constructors" for the objects
-    you will use. Do not call constructors directly.
-
- ******************************************************************************/
-  function createObject    return pljsonObject;
-  function createArray     return pljsonArray;
-  function createNull      return pljsonNull;
-
-  function createString  ( val in varchar2 ) return pljsonString;
-  function createNumber  ( val in number )   return pljsonNumber;
-  function createBoolean ( val in boolean )  return pljsonBoolean;
-
-/******************************************************************************
-    Conversion Functions: again because PL/SQL doesn't allow recursive
-    references, we have to convert a pljsonElement to a pljsonObject or pljsonArray
-    this way. Since we do this, we'll do the other types this way as well.
- ******************************************************************************/
-  function getObject  ( e  in pljsonElement ) return pljsonObject;
-  function getArray   ( e  in pljsonElement ) return pljsonArray;
-  function getString  ( e  in pljsonElement ) return varchar2;
-  function getNumber  ( e  in pljsonElement ) return number;
-  function getBoolean ( e  in pljsonElement ) return boolean;
-
-/******************************************************************************
-    These are "private". Don't use these. Instead use pljsonElement.isXxx.
- ******************************************************************************/
-  function "isObject "( e  in  pljsonElement ) return boolean;
-  function "isArray  "( e  in  pljsonElement ) return boolean;
-  function "isString "( e  in  pljsonElement ) return boolean;
-  function "isNumber "( e  in  pljsonElement ) return boolean;
-  function "isBoolean"( e  in  pljsonElement ) return boolean;
-  function "isNull   "( e  in  pljsonElement ) return boolean;
+function makeJson
+  ( pljson in pljsonElement,
+    pretty in binary_integer,
+    err out varchar2 )
+  return CLOB
+is language java name 'net.rubywillow.MakeJson.makeJson( java.sql.Struct, int, java.lang.String[] ) return java.sql.Clob';
+--------------------------------------------------------------------------------
+function refCursorToJson
+  ( input    in sys_refcursor,
+    rootName in varchar2,
+    compact  in binary_integer,
+    pretty   in binary_integer,
+    dateFmt  in varchar2,
+    err     out varchar2 )
+  return CLOB
+is language java name 'net.rubywillow.RefCursorToJson.refCursorToJson( java.sql.ResultSet, java.lang.String, int, int, java.lang.String, java.lang.String[] ) return java.sql.Clob';
+--------------------------------------------------------------------------------
 
 end pljson;
 /
