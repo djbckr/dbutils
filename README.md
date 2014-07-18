@@ -15,7 +15,7 @@ is lots more documentation there.
 - `tsTable` :: a table of timestamp
 - `tstzTable` :: a table of timestamp with time zone
 - `anyTable` :: a table of anydata
----
+
 - `strArray` :: a varray(100) of varchar2(32760 char)
 - `numArray` :: a varray(100) of number
 - `rawArray` :: a varray(100) of raw(32);
