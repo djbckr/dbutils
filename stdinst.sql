@@ -64,12 +64,14 @@ alter session set current_schema = "RubyWillow";
 @@cfg/cfginst.sql
 @@trc/trcinst.sql
 @@zip/zipinst.sql
-
 @@pljson/pljsoninst.sql
-
 @@tblaudit/tblauditinst.sql
 @@whirlpool/whirlpoolinst.sql
 
-@@exif/exifinst.sql
+/* NOTE: the EXIF utility has some potential security issues,
+   so we don't recommend installing it on a system that should
+   be more secure. Just uncomment the below line to install it.
+*/
+-- @@exif/exifinst.sql
 
 exit

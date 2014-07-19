@@ -84,13 +84,5 @@ grant execute on anyarray to public
 prompt creating the utl package...
 @@Utility.sql.java
 
-begin
-  dbms_java.grant_permission( 'RubyWillow', 'SYS:java.io.FilePermission', '<<ALL FILES>>', 'execute' );
-  dbms_java.grant_permission( 'RubyWillow', 'SYS:java.lang.RuntimePermission', 'writeFileDescriptor', '' );
-  dbms_java.grant_permission( 'RubyWillow', 'SYS:java.lang.RuntimePermission', 'readFileDescriptor', '' );
-  commit;
-end;
-/
-
 @@utl.package.sql
 @@utl.pkgbody.sql
