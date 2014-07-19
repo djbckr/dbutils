@@ -1,4 +1,4 @@
-create or replace package "RubyWillow".mem authid definer is
+create or replace package mem authid definer is
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -70,47 +70,48 @@ procedure setRaw
 -------------------------------------------------------------------------------
 function getMem
   ( memName    in   varchar2 )
-  return anydata;
+  return anydata parallel_enable;
 -------------------------------------------------------------------------------
 function getString
   ( memName    in   varchar2 )
-  return varchar2;
+  return varchar2 parallel_enable;
 -------------------------------------------------------------------------------
 function getNumber
   ( memName    in   varchar2 )
-  return number;
+  return number parallel_enable;
 -------------------------------------------------------------------------------
 function getDate
   ( memName    in   varchar2 )
-  return date;
+  return date parallel_enable;
 -------------------------------------------------------------------------------
 function getTimestamp
   ( memName    in   varchar2 )
-  return timestamp;
+  return timestamp parallel_enable;
 -------------------------------------------------------------------------------
 function getTimestampTZ
   ( memName    in   varchar2 )
-  return timestamp with time zone;
+  return timestamp with time zone parallel_enable;
 -------------------------------------------------------------------------------
 function getTimestampLTZ
   ( memName    in   varchar2 )
-  return timestamp with local time zone;
+  return timestamp with local time zone parallel_enable;
 -------------------------------------------------------------------------------
 function getIntervalYM
   ( memName    in   varchar2 )
-  return interval year to month;
+  return interval year to month parallel_enable;
 -------------------------------------------------------------------------------
 function getIntervalDS
   ( memName    in   varchar2 )
-  return interval day to second;
+  return interval day to second parallel_enable;
 -------------------------------------------------------------------------------
 function getRaw
   ( memName    in   varchar2 )
-  return raw;
+  return raw parallel_enable;
 -------------------------------------------------------------------------------
 end mem;
 /
-grant execute on "RubyWillow".mem to public
+show errors package mem
+grant execute on mem to public
 /
-create or replace public synonym mem for "RubyWillow".mem
+create or replace public synonym mem for mem
 /

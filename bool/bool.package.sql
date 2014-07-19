@@ -39,11 +39,11 @@ cFalse constant varchar2(1) := ' ';
    these functions give you access to those values */
 function fTrue
   return varchar2
-  deterministic;
+  deterministic parallel_enable;
 
 function fFalse
   return varchar2
-  deterministic;
+  deterministic parallel_enable;
 
 /* convert a string to boolean. If you want something
    specific to represent true you can supply it.
@@ -52,7 +52,7 @@ function toBool
   ( val      in varchar2,
     trueVal  in varchar2 default cTrue )
   return boolean
-  deterministic;
+  deterministic parallel_enable;
 
 /* convert a boolean to string. If you want something
    specific to represent the true/false values,
@@ -62,7 +62,7 @@ function toChar
     trueVal  in varchar2 default cTrue,
     falseVal in varchar2 default cFalse )
   return varchar2
-  deterministic;
+  deterministic parallel_enable;
 
 end bool;
 /

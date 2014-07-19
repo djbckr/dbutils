@@ -1,4 +1,4 @@
-create or replace package body "RubyWillow".mem is
+create or replace package body mem is
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -405,3 +405,4 @@ end getRaw;
 -------------------------------------------------------------------------------
 end mem;
 /
+show errors package body mem
