@@ -101,7 +101,7 @@ manner. You can store any datatypes in here, but there are convenience methods
 for Strings, Numbers, Timestamps, and Raw data. The underlying mechanism uses 
 the ANYDATA datatype.
 
-The `CONFIG` view displays, as much as it can, the contents of the underlying 
+The `CONFIG` view displays - as much as it can - the contents of the underlying 
 stored data.
 
 This package is not intended to be a general store for application data; it's 

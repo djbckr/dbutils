@@ -33,7 +33,7 @@ JSON defines a few particulars (go [here](http://json.org/) for details):
 - Array: this is an ordered list of zero or more values. The value could a primitive type, a NULL value, another Array, or an Object. An Array is denoted by an opening and closing bracket: "[" and "]". Each item in the array is separated by a comma. The values need not be the same type for each element in the array.
 - Strings have certain escape sequences, but you need not worry about that; the GSON library takes care of translating these for you.
 
-JavaScript is a weakly typed and fully dynamic language, and that concept is diametrically opposed to the nature of SQL Objects and the PL/SQL language. This makes the translation to/from the two languages somewhat difficult. The attempt of this library was to make this as graceful as possible, but there are is one item to keep in mind:
+JavaScript is a weakly typed and fully dynamic language, and that concept is diametrically opposed to the nature of SQL Objects and the PL/SQL language. This makes the translation to/from the two languages somewhat difficult. The attempt of this library was to make this as graceful as possible, but there is one item to keep in mind:
 
 - Do not attempt to use or modify the "~" attribute of the `pljsonElement` type. It is intended to be private/abstract, but SQL Types must have at least one public attribute, even if they are abstract. This attribute is used internally in the Java layer of this library, so modifying it will create problems for you.
 
@@ -139,6 +139,7 @@ Using `tuple` is the best way to represent a dynamic list of members, and it is 
 
 In general, you shouldn't need to access the tuple directly, but you can if you like. You can treat it like any other nested table object. If you want to iterate through the table, be aware that it could be "sparse" and so you want to use the appropriate [iteration method](http://docs.oracle.com/cd/E11882_01/appdev.112/e25519/composites.htm#BEIBJDBF).
 
+- `constructor function pljsonObject` is the no-value constructor to create this object.
 - `getIndex` returns the index offset of the named entry. If the entry doesn't exist, NULL is returned.
 - `getMember` returns the `pljsonElement` of the named entry. If the entry doesn't exist, NULL is returned.
 - `addMember` adds a `pljsonElement` to the entries. If the named entry already exists, it is overwritten.
@@ -178,7 +179,7 @@ Subtype of `pljsonElement`. This represents a JSON array, and is defined as foll
 
 The elements in this object is a `pljsonElements` which is simply a table of `pljsonElement`. Like `pljsonObject`, you can iterate through elements using the proper technique.
 
-The convenience methods create the correct primitive type to be used.
+- `constructor function pljsonArray` is the no-value constructor to create this object.
 
 ### pljsonPrimitive
 
