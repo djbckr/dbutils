@@ -6,10 +6,9 @@ Since I want to be able to load this from a lightweight client, I have to resort
 This file essentially does what the loadjava tool does.
 
   - Load the JAR (in the form of a hex-string) into a BLOB
-  - Split the JAR into individual class files
-  - Load the class files into the "CREATE$JAVA$LOB$TABLE"
-  - Call CREATE JAVA... for each of the class files
-  - Compile the class files
+  - Split the JAR into individual files
+  - Load the class/resource files into the "CREATE$JAVA$LOB$TABLE"
+  - Call CREATE JAVA... for each of the class/resource files
 
 */
 
@@ -2009,7 +2008,7 @@ prompt creating commons-codec java objects...
 
 begin
   <<javaLoop>>
-  for cx in (select * from "CREATE$JAVA$LOB$TABLE" where name like 'org%class')
+  for cx in (select name from "CREATE$JAVA$LOB$TABLE" where name like 'org/apache/commons/codec/%class')
   loop
     execute immediate 'create or replace java class authid definer using '''||cx.name||'''';
   end loop javaLoop;
@@ -2020,7 +2019,7 @@ prompt creating commons-codec resource objects...
 
 begin
   <<rsrcLoop>>
-  for cx in (select * from "CREATE$JAVA$LOB$TABLE" where name like 'org%txt')
+  for cx in (select name from "CREATE$JAVA$LOB$TABLE" where name like 'org/apache/commons/codec/%txt')
   loop
     execute immediate 'create or replace java resource named "'||cx.name||'" authid definer using '''||cx.name||'''';
   end loop rsrcLoop;

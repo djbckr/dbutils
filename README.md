@@ -158,6 +158,13 @@ This package allows you to store any data in a memory dictionary. This makes a
 great dynamic bind-variable store; better than SYS_CONTEXT(). Please refer
 to the README in that directory for more information.
 
+### The METAPHONE package
+The [metaphone algorithm](http://en.wikipedia.org/wiki/Metaphone) is considered
+to be a better, more accurate version of SOUNDEX. This uses the DoubleMetaphone
+algorithm implemented by [Apache Commons Codec]
+(http://commons.apache.org/proper/commons-codec/) so it returns two variations
+of a word.
+
 ### The EXIF package
 This package allows you to get EXIF (image metadata) from a large variety of 
 media files. It uses the [exiftool](http://www.sno.phy.queensu.ca/~phil/exiftool/) 

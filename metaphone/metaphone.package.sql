@@ -1,3 +1,4 @@
+create or replace package metaphone authid definer is
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -23,57 +24,27 @@
     THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
     OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
     EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
 */
 
-whenever sqlerror exit sql.sqlcode
-SET APPINFO RubyWillow_Install
-SET ARRAYSIZE 250
-SET DEFINE '^'
-SET SQLPREFIX ~
-SET LINESIZE 32767
-SET LONG 2000000000
-SET LONGCHUNKSIZE 8192
-SET PAGESIZE 50000
-SET SERVEROUTPUT ON
-SET TIMING OFF
-SET TRIMOUT ON
-SET TRIMSPOOL ON
-SET VERIFY OFF
-SET NUMWIDTH 14
-SET FEEDBACK OFF
+-- use this one in PL/SQL
+procedure eval
+  ( evalString  in  varchar2,
+    result      out varchar2,
+    result_alt  out varchar2 );
 
-BEGIN
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET NLS_DATE_FORMAT='YYYY/MM/DD HH24:MI:SS']';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET NLS_TIMESTAMP_FORMAT='YYYY/MM/DD HH24:MI:SS.FF4']';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET NLS_TIMESTAMP_TZ_FORMAT='YYYY/MM/DD HH24:MI:SS.FF4 TZH:TZM']';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET NLS_LENGTH_SEMANTICS=CHAR]';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET PLSCOPE_SETTINGS='IDENTIFIERS:NONE']';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET PLSQL_CODE_TYPE='INTERPRETED']';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET PLSQL_OPTIMIZE_LEVEL=3]';
-  EXECUTE IMMEDIATE q'[ALTER SESSION SET PLSQL_WARNINGS='DISABLE:ALL','ENABLE:SEVERE']';
-END;
+-- use this one in SQL
+function eval
+  ( evalString  in varchar2,
+    alternate   in varchar2 default bool.cFalse )
+  return varchar2
+  deterministic
+  parallel_enable;
+
+end metaphone;
 /
-
-grant unlimited tablespace to "RubyWillow"
+show errors package metaphone
+grant execute on metaphone to public
 /
-
-alter session set current_schema = "RubyWillow";
-
-@@bool/boolinst.sql
-@@utl/utlinst.sql
-@@cfg/cfginst.sql
-@@trc/trcinst.sql
-@@zip/zipinst.sql
-@@mem/meminst.sql
-@@metaphone/metaphoneinst.sql
-@@pljson/pljsoninst.sql
-@@tblaudit/tblauditinst.sql
-@@whirlpool/whirlpoolinst.sql
-
-/* NOTE: the EXIF utility has some potential security issues,
-   so we don't recommend installing it on a system that should
-   be more secure. Just uncomment the below line to install it.
-*/
--- @@exif/exifinst.sql
-
-exit
+create or replace public synonym metaphone for metaphone
+/
