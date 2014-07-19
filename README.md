@@ -154,7 +154,8 @@ In our opinion, Whirlpool is a superior hashing algorithm than anything else
 available. It's perfect for hashing passwords, among other things.
 
 ### The MEM package
-This package allows you to store any data in a memory dictionary. Please refer
+This package allows you to store any data in a memory dictionary. This makes a
+great dynamic bind-variable store; better than SYS_CONTEXT(). Please refer
 to the README in that directory for more information.
 
 ### The EXIF package
