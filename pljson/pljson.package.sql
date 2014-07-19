@@ -1,4 +1,4 @@
-create or replace package pljson authid current_user is
+create or replace package pljson authid definer is
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.

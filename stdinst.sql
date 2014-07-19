@@ -64,6 +64,7 @@ alter session set current_schema = "RubyWillow";
 @@cfg/cfginst.sql
 @@trc/trcinst.sql
 @@zip/zipinst.sql
+@@mem/meminst.sql
 @@pljson/pljsoninst.sql
 @@tblaudit/tblauditinst.sql
 @@whirlpool/whirlpoolinst.sql

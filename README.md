@@ -153,9 +153,18 @@ hashing algorithm. This package simply interfaces to the
 In our opinion, Whirlpool is a superior hashing algorithm than anything else 
 available. It's perfect for hashing passwords, among other things.
 
+### The MEM package
+This package allows you to store any data in a memory dictionary. Please refer
+to the README in that directory for more information.
+
 ### The EXIF package
 This package allows you to get EXIF (image metadata) from a large variety of 
 media files. It uses the [exiftool](http://www.sno.phy.queensu.ca/~phil/exiftool/) 
 program, and that program must be installed on the Oracle database server in order 
 to work. This utility is a great example of how to call a command-line from Java 
-through PL/SQL.
+through PL/SQL. This package is not automatically installed from the normal
+installer script since there is a security issue there. You can look around
+in the source code to see how it works and if you decide you want to install it,
+just un-comment the line in the installer.
+
+

@@ -1,4 +1,4 @@
-create type pljsonElement oid '96590F8B68C0B283BF683389525F318F' authid current_user is object (
+create type pljsonElement oid '96590F8B68C0B283BF683389525F318F' authid definer is object (
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
@@ -97,7 +97,7 @@ create type pljsonElement oid '96590F8B68C0B283BF683389525F318F' authid current_
 ) not final not instantiable;
 /
 
-create type pljsonObjectEntry oid '06C6F3EA71E57DDB2CC016CCCD3FF056' authid current_user is object (
+create type pljsonObjectEntry oid '06C6F3EA71E57DDB2CC016CCCD3FF056' authid definer is object (
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
@@ -140,7 +140,7 @@ create type pljsonObjectEntry oid '06C6F3EA71E57DDB2CC016CCCD3FF056' authid curr
 create type pljsonObjectEntries oid '39F7ABDECD755CA979565FB1039D7F70' is table of pljsonObjectEntry;
 /
 
-create type pljsonObject oid '360141B0610AD5BB7AAB8A56C8943AB4' authid current_user under pljsonElement (
+create type pljsonObject oid '360141B0610AD5BB7AAB8A56C8943AB4' authid definer under pljsonElement (
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
@@ -219,7 +219,7 @@ create type pljsonObject oid '360141B0610AD5BB7AAB8A56C8943AB4' authid current_u
 create type pljsonElements oid 'EB1A892742A0E6511D9C83F15C2C6CFF' is table of pljsonElement;
 /
 
-create type pljsonArray oid '14BECEF1F6E64EBA45635485EB426F32' authid current_user under pljsonElement (
+create type pljsonArray oid '14BECEF1F6E64EBA45635485EB426F32' authid definer under pljsonElement (
 
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
@@ -280,7 +280,7 @@ create type pljsonArray oid '14BECEF1F6E64EBA45635485EB426F32' authid current_us
 ) final instantiable;
 /
 
-create type pljsonPrimitive oid 'F3032476FFB7F89CDA56884E0B64AC1D' authid current_user under pljsonElement (
+create type pljsonPrimitive oid 'F3032476FFB7F89CDA56884E0B64AC1D' authid definer under pljsonElement (
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -311,7 +311,7 @@ create type pljsonPrimitive oid 'F3032476FFB7F89CDA56884E0B64AC1D' authid curren
 ) not final not instantiable;
 /
 
-create type pljsonNull oid 'FB2A64820A8665856C506B7CCADB3B55' authid current_user under pljsonPrimitive (
+create type pljsonNull oid 'FB2A64820A8665856C506B7CCADB3B55' authid definer under pljsonPrimitive (
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -348,7 +348,7 @@ create type pljsonNull oid 'FB2A64820A8665856C506B7CCADB3B55' authid current_use
 ) final instantiable;
 /
 
-create type pljsonString oid 'C1068B34CE7EFE2506837A1669EA8F42' authid current_user under pljsonPrimitive (
+create type pljsonString oid 'C1068B34CE7EFE2506837A1669EA8F42' authid definer under pljsonPrimitive (
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -387,7 +387,7 @@ create type pljsonString oid 'C1068B34CE7EFE2506837A1669EA8F42' authid current_u
 ) final instantiable;
 /
 
-create type pljsonNumber oid '68DB9E5A9341332C951AA0C463AB6532' authid current_user under pljsonPrimitive (
+create type pljsonNumber oid '68DB9E5A9341332C951AA0C463AB6532' authid definer under pljsonPrimitive (
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 
@@ -426,7 +426,7 @@ create type pljsonNumber oid '68DB9E5A9341332C951AA0C463AB6532' authid current_u
 ) final instantiable;
 /
 
-create type pljsonBoolean oid 'D68D68058D04CBE0F1499A6216A5E29D' authid current_user under pljsonPrimitive (
+create type pljsonBoolean oid 'D68D68058D04CBE0F1499A6216A5E29D' authid definer under pljsonPrimitive (
 /*  Copyright (c) 2014, Ruby Willow, Inc.
     All rights reserved.
 

@@ -14,8 +14,6 @@ create table "trc" (
   log_level           raw(1),
   log_lvl_setting     raw(1),
   session_user        varchar2(30 byte) default sys_context('userenv', 'session_user'),
-  current_user        varchar2(30 byte) default sys_context('userenv', 'current_user'),
-  current_schema      varchar2(30 byte) default sys_context('userenv', 'current_schema'),
   proxy_user          varchar2(30 byte) default sys_context('userenv', 'proxy_user'),
   web_user            varchar2(80 char) ,
   module              varchar2(48 byte) default sys_context('userenv', 'module'),
@@ -55,9 +53,8 @@ select  tmstmp utc, audsid, call_stack, err_stack, err_backtrace,
            when '08' then '8-Debug'
            else '?'
         end log_lvl_setting,
-        session_user, current_user, current_schema, proxy_user,
-        web_user, module, action, client_info, client_identifier,
-        terminal, os_user, ip_address, sid, instance_name
+        session_user, proxy_user, web_user, module, action, client_info,
+        client_identifier, terminal, os_user, ip_address, sid, instance_name
   from "trc"
   with read only
 /
@@ -71,9 +68,8 @@ create or replace public synonym trace for trace
 create or replace force view trace_me as
 select  utc, call_stack, err_stack, err_backtrace, additional_info,
         timing, timing_comment, log_level, log_lvl_setting, session_user,
-        current_user, current_schema, proxy_user, web_user, module,
-        action, client_info, client_identifier, terminal, os_user,
-        ip_address, sid, instance_name
+        proxy_user, web_user, module, action, client_info, client_identifier,
+        terminal, os_user, ip_address, sid, instance_name
   from trace
   where audsid = sys_context('userenv','sessionid')
 /

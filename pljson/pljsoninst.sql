@@ -26,7 +26,6 @@ grant execute on pljsonPrimitive to public;
 grant execute on pljsonString to public;
 grant execute on pljsonNumber to public;
 grant execute on pljsonBoolean to public;
-grant execute on pljson to public;
 
 create or replace public synonym pljsonElement       for pljsonElement;
 create or replace public synonym pljsonNull          for pljsonNull;
@@ -39,5 +38,3 @@ create or replace public synonym pljsonPrimitive     for pljsonPrimitive;
 create or replace public synonym pljsonString        for pljsonString;
 create or replace public synonym pljsonNumber        for pljsonNumber;
 create or replace public synonym pljsonBoolean       for pljsonBoolean;
-create or replace public synonym pljson              for pljson;
-
