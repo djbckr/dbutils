@@ -8,6 +8,9 @@ prompt creating the pljson utility...
 @@ParseJson.sql.java
 @@RefCursorToJson.sql.java
 
+-- get rid of complaints about using the word "VALUE"
+alter session set plsql_warnings='DISABLE:5004';
+
 @@pljson.types.sql
 @@pljson.package.sql
 @@pljson.typbodies.sql
