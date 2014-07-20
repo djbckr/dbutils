@@ -2,6 +2,32 @@ prompt creating the trc package...
 
 grant create job to "RubyWillow";
 
+declare
+  roleExists exception;
+  pragma exception_init(roleExists, -1921);
+begin
+  execute immediate 'create role trcadmin';
+exception
+  when roleExists then null;
+end;
+/
+
+begin
+  execute immediate 'grant trcadmin to '||user;
+  -- execute immediate 'grant trcadmin to "RubyWillow"';
+end;
+/
+
+declare
+  roleExists exception;
+  pragma exception_init(roleExists, -1921);
+begin
+  execute immediate 'create role trcview';
+exception
+  when roleExists then null;
+end;
+/
+
 create table "trc" (
   tmstmp              timestamp (6),
   audsid              varchar2(30 byte) default sys_context('userenv', 'sessionid'),
@@ -59,7 +85,7 @@ select  tmstmp utc, audsid, call_stack, err_stack, err_backtrace,
   with read only
 /
 
-grant select on trace to public
+grant select on trace to trcview
 /
 
 create or replace public synonym trace for trace
@@ -81,4 +107,6 @@ create or replace public synonym trace_me for trace_me
 /
 
 @@trc.package.sql
+@@trc_admin.package.sql
 @@trc.pkgbody.sql
+@@trc_admin.pkgbody.sql

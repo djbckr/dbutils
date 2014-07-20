@@ -128,14 +128,10 @@ create or replace package trc authid definer is
     iAutonomous       in  boolean  default true );
 
 -------------------------------------------------------------------------------
-/*  Log-Level Scope; use these constants in your code when specifying the scope
-    of the log-level setting. See below for more details
-*/
-  llScopeSession constant rw := 'A1';
-  llScopeGlobal  constant rw := 'A2';
-
 /*  PROCEDURE setLogLevel
-    This modifies what log events will be recorded in the TRACE view.
+    This modifies what log events will be recorded in the TRACE view
+    at the session level. To change the log-level globally, use
+    trc_admin.setLogLevel()
 
     input values:
       -- iLogLevel - anything from llEmerg to llDebug. Specifying llDebug
@@ -143,40 +139,10 @@ create or replace package trc authid definer is
                      the system down if you specify llScopeGlobal - as all
                      session will record as much data as possible.
 
-      -- iScope - specify llScopeSession to change the level of recording for
-                  this session only, or specify llScopeGlobal to change the
-                  level of recording for all current and future sessions.
-
-    NOTE: calling this procedure "overrides" the current global setting, but
-          if the global setting changes, the sessions' settings revert to
-          the global settings.
 */
   procedure setLogLevel
-    ( iLogLevel    in  rw,
-      iScope       in  rw default llScopeSession );
+    ( iLogLevel    in  rw );
 
--------------------------------------------------------------------------------
-/*  PROCEDURE purgeTraceData purges all trace data before the given timestamp.
-
-    This creates a job that runs outside the scope of your session, so it returns
-    immediately, regardless of the size of data you are purging.
-
-    input values:
-      -- iBeforeTimestamp - specify a timestamp which is the cutoff time you wish
-                            to delete data. Keep in mind the timestamps in the TRACE
-                            view are set to UTC, so you may want to consider using
-                            sys_extract_utc(systimestamp) as your input.
-*/
-  procedure purgeTraceData
-    ( iBeforeTimestamp  in timestamp );
-
--------------------------------------------------------------------------------
-/* This procedure is intended to be used internally (by the job).
-   Do not call this from your code.
-*/
-  procedure purgeTraceDataInternal
-    ( iBeforeTimestamp  in varchar2 );
--------------------------------------------------------------------------------
 end trc;
 /
 show errors package trc

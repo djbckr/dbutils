@@ -1,4 +1,4 @@
-create or replace package body cfg is
+create or replace package body cfg_admin is
 /*  Copyright (c) 2014, Ruby Willow, Inc.
  All rights reserved.
 
@@ -27,83 +27,72 @@ create or replace package body cfg is
 */
 
 -------------------------------------------------------------------------------
-function getCfg
-  ( iName         in varchar2 )
-  return anydata
+procedure setCfg
+  ( iName   in   varchar2,
+    iValue  in   anydata )
 is
-  vRslt  anydata;
+  pragma autonomous_transaction;
 begin
 
-  select z.value
-    into vRslt
-    from dual
-    left join "cfg" z
-      on z.name = lower(trim(iName));
+  merge into "cfg" dst
+    using (select lower(trim(iName)) name, iValue value from dual) src
+    on (dst.name = src.name)
+    when matched then update
+      set dst.value = src.value
+    when not matched then insert
+        (dst.name, dst.value)
+      values
+        (src.name, src.value);
 
-  return vRslt;
+  commit;
 
-end getCfg;
+end setCfg;
 -------------------------------------------------------------------------------
-function getCfgString
-  ( iName         in varchar2 )
-  return varchar2
+procedure setCfgString
+  ( iName      in   varchar2,
+    iString    in   varchar2 )
 is
-  vRslt  utl.text;
+begin
+  setCfg(iName, anydata.convertVarchar2(iString));
+end setCfgString;
+-------------------------------------------------------------------------------
+procedure setCfgNumber
+  ( iName      in   varchar2,
+    iNumber    in   number )
+is
+begin
+  setCfg(iName, anydata.convertNumber(iNumber));
+end setCfgNumber;
+-------------------------------------------------------------------------------
+procedure setCfgTimestamp
+  ( iName      in   varchar2,
+    iTimestamp in   timestamp )
+is
+begin
+  setCfg(iName, anydata.convertTimestamp(iTimestamp));
+end setCfgTimestamp;
+-------------------------------------------------------------------------------
+procedure setCfgRaw
+  ( iName      in   varchar2,
+    iRaw       in   raw )
+is
+begin
+  setCfg(iName, anydata.convertRaw(iRaw));
+end setCfgRaw;
+-------------------------------------------------------------------------------
+procedure dropCfg
+  ( iName in  varchar )
+is
+  pragma autonomous_transaction;
 begin
 
-  select cfg.getCfg(iName).accessVarchar2()
-    into vRslt
-    from dual;
+  delete "cfg"
+    where name = lower(trim(iName));
 
-  return vRslt;
+  commit;
 
-end getCfgString;
+end dropCfg;
 -------------------------------------------------------------------------------
-function getCfgNumber
-  ( iName         in varchar2 )
-  return number
-is
-  vRslt  number;
-begin
-
-  select cfg.getCfg(iName).accessNumber()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgNumber;
--------------------------------------------------------------------------------
-function getCfgTimestamp
-  ( iName         in varchar2 )
-  return timestamp
-is
-  vRslt  timestamp;
-begin
-
-  select cfg.getCfg(iName).accessTimestamp()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgTimestamp;
--------------------------------------------------------------------------------
-function getCfgRaw
-  ( iName         in varchar2 )
-  return raw
-is
-  vRslt  raw(2000);
-begin
-
-  select cfg.getCfg(iName).accessRaw()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgRaw;
--------------------------------------------------------------------------------
-end cfg;
+end cfg_admin;
 /
-show errors package body cfg
+show errors package body cfg_admin

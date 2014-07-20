@@ -46,10 +46,10 @@ If you call a getCfg... routine with no/missing configuration, NULL is returned.
 
 Note that the functions
 
-    getCfgString    setCfgString
-    getCfgNumber    setCfgNumber
-    getCfgTimestamp setCfgTimestamp
-    getCfgRaw       setCfgRaw
+    getCfgString
+    getCfgNumber
+    getCfgTimestamp
+    getCfgRaw
 
 Are convenience functions that translates the data-type for you. Note that if
 you SET a number, and GET a string, you will get NULL. The underlying engine
@@ -63,14 +63,6 @@ function getCfg
   ( iName         in varchar2 )
   return anydata;
 
-procedure setCfg
-  ( iName   in   varchar2,
-    iValue  in   anydata );
-
-procedure dropCfg
-  ( iName in  varchar );
-
--------------------------------------------------------------------------------
 -- the convenience procedures
 function getCfgString
   ( iName         in varchar2 )
@@ -87,23 +79,6 @@ function getCfgTimestamp
 function getCfgRaw
   ( iName         in varchar2 )
   return raw;
-
-
-procedure setCfgString
-  ( iName      in   varchar2,
-    iString    in   varchar2 );
-
-procedure setCfgNumber
-  ( iName      in   varchar2,
-    iNumber    in   number );
-
-procedure setCfgTimestamp
-  ( iName      in   varchar2,
-    iTimestamp in   timestamp );
-
-procedure setCfgRaw
-  ( iName      in   varchar2,
-    iRaw       in   raw );
 
 end cfg;
 /

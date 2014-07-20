@@ -1,5 +1,31 @@
 prompt creating the cfg package...
 
+declare
+  roleExists exception;
+  pragma exception_init(roleExists, -1921);
+begin
+  execute immediate 'create role cfgadmin';
+exception
+  when roleExists then null;
+end;
+/
+
+declare
+  roleExists exception;
+  pragma exception_init(roleExists, -1921);
+begin
+  execute immediate 'create role cfgview';
+exception
+  when roleExists then null;
+end;
+/
+
+begin
+  execute immediate 'grant cfgadmin to '||user;
+  execute immediate 'grant cfgview to '||user;
+end;
+/
+
 create table "cfg" (
   name        varchar2(250 char),
   value       anydata constraint "nlCfgValue" not null,
@@ -17,16 +43,19 @@ select x.name, x.typeName,
          when 'SYS.NUMBER' then to_char(x.value.accessNumber())
          when 'SYS.RAW' then rawtohex(x.value.accessRaw())
          when 'SYS.TIMESTAMP' then to_char(x.value.accessTimestamp(), 'YYYY-MM-DD HH24:MI:SS')
-         else '>> un-disaplayable value <<'
-       end value
+         else '>> un-disaplayable value: use anyvalue.access...() function <<'
+       end value,
+       x.value anyvalue
   from y x
 with read only
 /
-grant select on config to public;
+grant select on config to cfgview;
 create or replace public synonym config for config;
 
 @@cfg.package.sql
+@@cfg_admin.package.sql
 @@cfg.pkgbody.sql
+@@cfg_admin.pkgbody.sql
 
 -- if there were configurations backed-up, restore them now
 declare
@@ -42,7 +71,7 @@ begin
   loop
     fetch cx into vName, vValue;
     exit when cx%notfound;
-    cfg.setCfg(vName, vValue);
+    cfg_admin.setCfg(vName, vValue);
   end loop;
   close cx;
   execute immediate 'drop table "'||vUser||'"."cfgBackup" purge';

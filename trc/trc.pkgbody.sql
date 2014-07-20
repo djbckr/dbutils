@@ -30,9 +30,7 @@ create or replace package body trc is
   subtype str is varchar2(32767);
   subtype ids is interval day to second;
 
-  -- configuration constant
   cTrcLogLvl       constant varchar2(14) := 'trace.loglevel';
-  cTrcPurgeMaxRows constant varchar2(20) := 'trace.purge.max.rows';
 
   -- since these variables are in a package, they are both "session" variables
   -- however, gSessionLogLevel is used to actually determine what this session
@@ -47,7 +45,7 @@ create or replace package body trc is
   gTimer           timestamp;
   gTimerComment    str;
 
-  gDateFmt         constant str := 'YYYYMMDDHH24MISSFF2';
+  ff               constant rw := 'FF';
 
 -------------------------------------------------------------------------------
 -- simple INSERT into TRACE table.
@@ -119,7 +117,7 @@ begin
   vTiming := timerStop(true);
 
   -- get the system-wide log-level
-  vGlobalLogLevel := cfg.getCfgRaw(cTrcLogLvl);
+  vGlobalLogLevel := nvl(cfg.getCfgRaw(cTrcLogLvl), ff);
 
   -- and see if it changed. If so, reset our session variables
   if gGlobalLogLevel != vGlobalLogLevel then
@@ -181,26 +179,8 @@ begin
 
 end timerStop;
 -------------------------------------------------------------------------------
-procedure setGlobalLogLevel
-  ( iLogLevel    in rw )
-is
-  pragma autonomous_transaction;
-begin
-
-  -- set the session's global level (for use for comparison in the LOG procedure)
-  gGlobalLogLevel := iLogLevel;
-
-  -- set the database-wide level
-  cfg.setCfgRaw(cTrcLogLvl, iLogLevel);
-
-  -- commit autonomous trxn
-  commit;
-
-end setGlobalLogLevel;
--------------------------------------------------------------------------------
 procedure setLogLevel
-  ( iLogLevel    in  rw,
-    iScope       in  rw default llScopeSession )
+  ( iLogLevel    in  rw )
 is
 begin
 
@@ -208,105 +188,22 @@ begin
     raise_application_error(-20001, 'Invalid Log Level Specified');
   end if;
 
-  -- set the local session level (which trumps the global level)
   gSessionLogLevel := iLogLevel;
 
-  if iScope = llScopeGlobal then
-    setGlobalLogLevel( iLogLevel );
-  end if;
-
 end setLogLevel;
--------------------------------------------------------------------------------
-/*  Since this has the potential to take a very long time, we create a job
-    to do it. If the job already exists, an error occurs. */
-procedure purgeTraceData
-  ( iBeforeTimestamp  in timestamp )
-is
-  cJobName  constant str := 'PURGE_TRACE_DATA';
-begin
-
-  dbms_scheduler.create_job (
-   job_name            => cJobName,
-   job_type            => 'STORED_PROCEDURE',
-   job_action          => 'trc.purgeTraceDataInternal',
-   number_of_arguments => 1,
-   comments            => 'A purge request was made for Trace Data');
-
-  dbms_scheduler.set_job_argument_value (
-   job_name            => cJobName,
-   argument_position   => 1,
-   argument_value      => to_char(iBeforeTimestamp, gDateFmt) );
-
-  dbms_scheduler.enable ( name => cJobName );
-
-  commit;
-
-end purgeTraceData;
--------------------------------------------------------------------------------
-/* This is called from the job created above. A couple of things:
-   -> The potential for very large sets of deletions is there, and
-      since deletes take a very long time, and generate enormous
-      amounts of redo, this procedure performs the deletes
-      in bite-size chunks. 10,000 records at a go seems reasonable
-      but can be changed in CFG.
-   -> Since this could take a while, it's performed as a job so the
-      user that invoked it can get on with their life while the delete
-      takes place.
-*/
-procedure purgeTraceDataInternal
-  ( iBeforeTimestamp  in varchar2 )
-is
-  maxRows   integer;
-  rowCnt    integer;
-  totalRows integer := 0;
-  ts      timestamp;
-  ti      timerInfo;
-begin
-  maxRows := cfg.getCfgNumber(cTrcPurgeMaxRows);
-
-  if maxRows is null then
-    maxRows := 10000;
-    cfg.setCfgNumber(cTrcPurgeMaxRows, maxRows);
-  end if;
-
-  timerStart('Time to purge trace data');
-  ts := to_timestamp(iBeforeTimestamp, gDateFmt);
-
-  <<mainLoop>>
-  loop
-
-    delete "trc"
-      where rowid in (select rowid
-                        from "trc"
-                        where tmstmp < sys_extract_utc(ts)
-                          and rownum < maxRows);
-
-    rowCnt := sql%rowcount;
-    totalRows := totalRows + rowCnt;
-
-    commit;
-
-    exit mainLoop when rowCnt = 0;
-
-  end loop mainLoop;
-
-  trc ( 'purgeTraceDataInternal complete: row count='||to_char(totalRows),
-        iAutonomous => false );
-
-  commit;
-
-end purgeTraceDataInternal;
 -------------------------------------------------------------------------------
 -- initialize the package log level
 procedure init
 is
+  ff constant raw(1) := 'FF';
 begin
 
   -- get the log-level from CFG
-  gSessionLogLevel := nvl(cfg.getCfgRaw(cTrcLogLvl), HexToRaw('FF'));
+  gSessionLogLevel := nvl(cfg.getCfgRaw(cTrcLogLvl), ff);
+  gGlobalLogLevel := gSessionLogLevel;
 
-  if gSessionLogLevel = HexToRaw('FF') then
-    setLogLevel(llError, llScopeGlobal);
+  if gSessionLogLevel = ff then
+    gSessionLogLevel := llError;
   end if;
 
 end init;
@@ -314,7 +211,6 @@ end init;
 
 begin
 
-  -- package initialization
   init;
 
 end trc;

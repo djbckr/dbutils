@@ -1,4 +1,4 @@
-create or replace package body cfg is
+create or replace package cfg_admin authid definer is
 /*  Copyright (c) 2014, Ruby Willow, Inc.
  All rights reserved.
 
@@ -26,84 +26,68 @@ create or replace package body cfg is
  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+  -- This package can only be executed by users with the CFGADMIN role
+
+/*
+###PACKAGE CFG
+
+Set arbritrary name/value pairs.
+
+The name is case-insensitive.
+That is: "MYCONFIG" == "MyConfig" == "myconfig"
+
+The name is also trimmed of white-space at the beginning and end.
+
+It's generally considered good form to use dot-notation for a name,
+like "domain.category.variable" to help avoid name contention. Of
+course, you are free to do as you like.
+
+You can see the contents of CFG using the CONFIG view.
+
+Note that the functions
+
+    setCfgString
+    setCfgNumber
+    setCfgTimestamp
+    setCfgRaw
+
+Are convenience functions that translates the data-type for you. Note that if
+you SET a number, and GET a string, you will get NULL. The underlying engine
+uses the ANYDATA datatype and this is the behavior. Make sure you set/get the
+correct datatype you are expecting to use.
+
+*/
+
+-- the main procedures
+procedure setCfg
+  ( iName   in   varchar2,
+    iValue  in   anydata );
+
+procedure dropCfg
+  ( iName in  varchar );
+
 -------------------------------------------------------------------------------
-function getCfg
-  ( iName         in varchar2 )
-  return anydata
-is
-  vRslt  anydata;
-begin
+-- the convenience procedures
+procedure setCfgString
+  ( iName      in   varchar2,
+    iString    in   varchar2 );
 
-  select z.value
-    into vRslt
-    from dual
-    left join "cfg" z
-      on z.name = lower(trim(iName));
+procedure setCfgNumber
+  ( iName      in   varchar2,
+    iNumber    in   number );
 
-  return vRslt;
+procedure setCfgTimestamp
+  ( iName      in   varchar2,
+    iTimestamp in   timestamp );
 
-end getCfg;
--------------------------------------------------------------------------------
-function getCfgString
-  ( iName         in varchar2 )
-  return varchar2
-is
-  vRslt  utl.text;
-begin
+procedure setCfgRaw
+  ( iName      in   varchar2,
+    iRaw       in   raw );
 
-  select cfg.getCfg(iName).accessVarchar2()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgString;
--------------------------------------------------------------------------------
-function getCfgNumber
-  ( iName         in varchar2 )
-  return number
-is
-  vRslt  number;
-begin
-
-  select cfg.getCfg(iName).accessNumber()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgNumber;
--------------------------------------------------------------------------------
-function getCfgTimestamp
-  ( iName         in varchar2 )
-  return timestamp
-is
-  vRslt  timestamp;
-begin
-
-  select cfg.getCfg(iName).accessTimestamp()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgTimestamp;
--------------------------------------------------------------------------------
-function getCfgRaw
-  ( iName         in varchar2 )
-  return raw
-is
-  vRslt  raw(2000);
-begin
-
-  select cfg.getCfg(iName).accessRaw()
-    into vRslt
-    from dual;
-
-  return vRslt;
-
-end getCfgRaw;
--------------------------------------------------------------------------------
-end cfg;
+end cfg_admin;
 /
-show errors package body cfg
+show errors package cfg_admin
+grant execute on cfg_admin to cfgadmin
+/
+create or replace public synonym cfg_admin for cfg_admin
+/
