@@ -9,14 +9,14 @@ is lots more documentation there.
 
 ### Some collection types
 
-- `strTable` :: a table of varchar2(32760 char)
+- `strTable` :: a table of varchar2(20000 char)
 - `numTable` :: a table of number
 - `rawTable` :: a table of raw(32)
 - `tsTable` :: a table of timestamp
 - `tstzTable` :: a table of timestamp with time zone
 - `anyTable` :: a table of anydata
 - ===
-- `strArray` :: a varray(100) of varchar2(32760 char)
+- `strArray` :: a varray(100) of varchar2(20000 char)
 - `numArray` :: a varray(100) of number
 - `rawArray` :: a varray(100) of raw(32);
 - `tsArray` :: a varray(100) of timestamp
