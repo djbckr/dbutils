@@ -61,7 +61,8 @@ create or replace package trc_admin authid definer is
                             sys_extract_utc(systimestamp) as your input.
 */
   procedure purgeTraceData
-    ( iBeforeTimestamp  in timestamp );
+    ( iBeforeTimestamp  in timestamp with time zone
+        default systimestamp - numtodsinterval(2.5, 'DAY') );
 
 -------------------------------------------------------------------------------
 /* This procedure is intended to be used internally (by the job).

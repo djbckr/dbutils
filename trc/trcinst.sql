@@ -29,7 +29,7 @@ end;
 /
 
 create table "trc" (
-  tmstmp              timestamp (6),
+  tmstmp              timestamp with time zone default systimestamp,
   audsid              varchar2(30 byte) default sys_context('userenv', 'sessionid'),
   call_stack          varchar2(2000 byte),
   err_stack           varchar2(2000 byte),
@@ -55,7 +55,7 @@ create table "trc" (
 /
 
 create or replace force view trace as
-select  tmstmp utc, audsid, call_stack, err_stack, err_backtrace,
+select  tmstmp, audsid, call_stack, err_stack, err_backtrace,
         additional_info, timing, timing_comment,
         case rawtohex (log_level)
            when '01' then '1-Emergency'
@@ -92,7 +92,7 @@ create or replace public synonym trace for trace
 /
 
 create or replace force view trace_me as
-select  utc, call_stack, err_stack, err_backtrace, additional_info,
+select  tmstmp, call_stack, err_stack, err_backtrace, additional_info,
         timing, timing_comment, log_level, log_lvl_setting, session_user,
         proxy_user, web_user, module, action, client_info, client_identifier,
         terminal, os_user, ip_address, sid, instance_name

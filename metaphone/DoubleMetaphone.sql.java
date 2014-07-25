@@ -22,6 +22,7 @@ public class DoubleMetaphone {
     private int maxCodeLen = 4;
     private boolean alternate;
 
+    // this static method is what is called from Oracle
     public static void doubleMetaphone (
         String str,
         String[] rslt,

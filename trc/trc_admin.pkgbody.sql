@@ -30,7 +30,7 @@ create or replace package body trc_admin is
   cTrcLogLvl       constant varchar2(14) := 'trace.loglevel';
   cTrcPurgeMaxRows constant varchar2(20) := 'trace.purge.max.rows';
 
-  gDateFmt         constant utl.text := 'YYYYMMDDHH24MISSFF2';
+  gDateFmt         constant utl.text := 'YYYY-MM-DD HH24:MI:SS.FF6 TZH:TZM';
 
 -------------------------------------------------------------------------------
 procedure setLogLevel
@@ -52,7 +52,8 @@ end setLogLevel;
 /*  Since this has the potential to take a very long time, we create a job
     to do it. If the job already exists, an error occurs. */
 procedure purgeTraceData
-  ( iBeforeTimestamp  in timestamp )
+  ( iBeforeTimestamp  in timestamp with time zone
+      default systimestamp - numtodsinterval(2.5, 'DAY') )
 is
   cJobName  constant utl.text := 'PURGE_TRACE_DATA';
 begin
@@ -91,7 +92,7 @@ is
   maxRows   integer;
   rowCnt    integer;
   totalRows integer := 0;
-  ts        timestamp;
+  ts        timestamp with time zone;
 begin
   maxRows := cfg.getCfgNumber(cTrcPurgeMaxRows);
 
@@ -101,7 +102,7 @@ begin
   end if;
 
   trc.timerStart('Time to purge trace data');
-  ts := to_timestamp(iBeforeTimestamp, gDateFmt);
+  ts := to_timestamp_tz(iBeforeTimestamp, gDateFmt);
 
   <<mainLoop>>
   loop
@@ -109,15 +110,14 @@ begin
     delete "trc"
       where rowid in (select rowid
                         from "trc"
-                        where tmstmp < sys_extract_utc(ts)
+                        where tmstmp < ts
                           and rownum < maxRows);
 
     rowCnt := sql%rowcount;
     totalRows := totalRows + rowCnt;
 
-    commit;
-
     exit mainLoop when rowCnt = 0;
+    commit;
 
   end loop mainLoop;
 

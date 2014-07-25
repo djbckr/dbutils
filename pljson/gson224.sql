@@ -2052,7 +2052,7 @@ prompt creating gson java objects...
 
 begin
   <<javaLoop>>
-  for cx in (select * from "CREATE$JAVA$LOB$TABLE" where name like 'com/google/gson%class')
+  for cx in (select name from "CREATE$JAVA$LOB$TABLE" where name like 'com/google/gson%class')
   loop
     execute immediate 'create or replace java class authid definer using '''||cx.name||'''';
   end loop javaLoop;

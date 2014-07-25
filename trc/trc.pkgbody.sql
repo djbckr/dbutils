@@ -42,7 +42,7 @@ create or replace package body trc is
   gGlobalLogLevel  rw;
 
   -- this is used to record timing data if we want it
-  gTimer           timestamp;
+  gTimer           timestamp with time zone;
   gTimerComment    str;
 
   ff               constant rw := 'FF';
@@ -61,11 +61,11 @@ is
 begin
 
   insert into "trc"
-    ( tmstmp, call_stack, err_stack, err_backtrace,
+    ( call_stack, err_stack, err_backtrace,
       additional_info, timing, timing_comment,
       log_level, log_lvl_setting, web_user )
     values
-    ( sys_extract_utc(systimestamp), iCallStack, iErrStack, iErrBack,
+    ( iCallStack, iErrStack, iErrBack,
       iAdditionalInfo, iTiming.timing, iTiming.timing_comment,
       iLogLevel, gSessionLogLevel, owa_sec.get_user_id );
 
@@ -152,7 +152,7 @@ procedure timerStart
 is
 begin
   -- to be on the safe side, we'll use UTC for everything
-  gTimer := sys_extract_utc(systimestamp);
+  gTimer := systimestamp;
   gTimerComment := iComment;
 end timerStart;
 -------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ begin
 
   if gTimer is not null then
 
-    rslt.timing         := sys_extract_utc(systimestamp) - gTimer;
+    rslt.timing         := systimestamp - gTimer;
     rslt.timing_comment := gTimerComment;
 
     if iClear then
