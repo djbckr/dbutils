@@ -28,7 +28,7 @@ This library is divided into three layers:
 
 JSON defines a few particulars (go [here](http://json.org/) for details):
 
-- Value: This can be a primitive type (string, number, Boolean), an Object, an Array, or a NULL. A string is identified by surrounding double-quotes. A number does not have quotes and may be scientific-notated. Boolean is either the literal true or false. A NULL uses the literal null.
+- Value: This can be a primitive type (string, number, Boolean), an Object, an Array, or a NULL. A string is identified by surrounding double-quotes. A number does not have quotes and may be scientific-notated. Boolean is either the literal `true` or `false`. A NULL uses the literal `null`.
 - Object: this is a collection of one or more "name":value pairs (herein referred to as tuple in this document). The value could be a primitive type, a NULL value, an Array, or another Object. The name must be a string type. An Object is denoted by an opening and closing brace: "{" and "}". Each tuple is separated by a comma.
 - Array: this is an ordered list of zero or more values. The value could a primitive type, a NULL value, another Array, or an Object. An Array is denoted by an opening and closing bracket: "[" and "]". Each item in the array is separated by a comma. The values need not be the same type for each element in the array.
 - Strings have certain escape sequences, but you need not worry about that; the GSON library takes care of translating these for you.
@@ -85,8 +85,9 @@ The `parseJSON()` function takes a JSON document and returns the root element. T
 The `refCursorToJson()` static method requires some more explanation, so go to the bottom of this document for a complete picture.
 
 Note that `getString`, `getNumber`, and `getBoolean` are considered convenience methods and will return "best-effort"
-for primitive types. `getString` will return a string-ified value for a number, and for Boolean, the character BOOL.cTrue (asterisk/star) for a true value and a BOOL.cFalse (space)
-for a false value. If a type can't be readily translated, NULL is returned. For example, a call to `getNumber` for a Boolean type will return NULL.
+for primitive types. `getString` will return a string-ified value for a number, and for Boolean, the character BOOL.cTrue (asterisk/star)
+for a true value and a BOOL.cFalse (space) for a false value. If a type can't be readily translated, NULL is returned.
+For example, a call to `getNumber` for a Boolean type will return NULL.
 
 ### pljsonObject
 Subtype of `pljsonElement`. This is the most complex of the types. It is defined as follows:
@@ -204,7 +205,7 @@ Subtype of `pljsonPrimitive`.  It has one additional attribute:
 
 and has a constructor where you provide the value.
 
-When serialized in JSON output, the number will always be represented in non-scientific notation.
+When serialized in JSON output, the number will always be represented in non-scientific notation. Be aware that very large numbers can be silently truncated when parsed by a standard Javascript engine.
 
 ### pljsonBoolean
 
@@ -217,7 +218,7 @@ Subtype of `pljsonPrimitive`.  It has one additional attribute and one method:
 
 and has constructor where you provide the initial value.
 
-You should use the `value()` method in your code, or use the `getBoolean()` method from `pljsonElement`. When serialized in JSON output, this primitive is properly converted to use the words **true** and **false** appropriately in the document.
+You should use the `value()` method in your code, or use the `getBoolean()` method from `pljsonElement`. When serialized in JSON output, this primitive is properly converted to use the words `true` and `false` appropriately in the document.
 
 ## An explanation of refCursorToJson()
 
@@ -236,19 +237,19 @@ Given the following query:
 
 We get the JSON document as follows:
 
-    { "json": [
-        { "varChar2": "xEPnPeRCmuOv",
-          "NUM": 21349.6088119,
-          "DT": "2010-07-21 02:58:16" },
-        { "varChar2": "JQrGaYJlgvbm",
-          "NUM": 49904.2727362,
-          "DT": "2013-09-11 06:02:49" },
-        { "varChar2": "SXijRbUUMghW",
-          "NUM": 40663.8263266,
-          "DT": "2015-01-10 07:05:42" },
-        { "varChar2": "hXOvoqnZGAMz",
-          "NUM": 97087.044715,
-          "DT": "2012-08-14 13:33:33" }
+    { "json":[
+        { "varChar2":"wWFzTFdjrXvL",
+          "NUM":92142.4009135,
+          "DT":"2017-02-16 01:32:41" },
+        { "varChar2":"hjGEmlwAvNrV",
+          "NUM":20319.5043451,
+          "DT":"2014-12-18 10:06:16" },
+        { "varChar2":"LVpQrxzKgzeY",
+          "NUM":62212.153137,
+          "DT":"2014-07-14 11:17:45" },
+        { "varChar2":"fXdlfMdSVENV",
+          "NUM":92895.0227431,
+          "DT":"2016-01-25 22:25:32" }
       ]
     }
 
@@ -256,12 +257,22 @@ A few things to note: If you specify a case-sensitive label (x AS "something"), 
 
 Specifying compact returns the data in a slightly more compact fashion:
 
-    { "json": [
-        [ "varChar2", "NUM", "DT" ],
-        [ "GDRXvWZmQahh", 81298.3390885, "2013-01-21 11:40:43" ],
-        [ "qefRYoMzzHwu", 76503.384392, "2014-08-25 10:29:59" ],
-        [ "rsEflMMgFiPe", 69963.8523149, "2012-10-29 03:03:20" ],
-        [ "hmLJmYyhzhra", 36927.5054318, "2010-04-21 11:18:28" ]
+    { "json":[
+        [ "varChar2",
+          "NUM",
+          "DT" ],
+        [ "rQceaTAjUuVc",
+          94043.4734433,
+          "2013-03-05 17:30:29" ],
+        [ "ImdRIamaZVog",
+          64596.3543953,
+          "2014-07-21 03:02:35" ],
+        [ "qmDjNbpHTeHB",
+          36919.665535,
+          "2012-01-22 01:42:45" ],
+        [ "zZxnyHkeezvW",
+          16774.7550996,
+          "2015-04-10 12:46:39" ]
       ]
     }
 
@@ -328,37 +339,56 @@ The normal JSON looks like:
 
 And the compact JSON looks like:
 
-    { "json": [
-        [ "varChar2", "NUM", "CRSR" ],
-        [ "AXTRVAPeSvEb", 43237.6318831,
-          [ [ "subField1", "subNumber2" ],
-            [ "ElfrRjwTgh", 90999917723.145 ],
-            [ "OCHDtvWXdG", 63444436634.8586 ],
-            [ "FNNwfrESep", 2308724396.9671 ]
-          ]
-        ],
-        [ "gwJZgItHYbsD", 30981.9794112,
-          [ [ "subField1", "subNumber2" ],
-            [ "hwzeZKMdSx", 133901885.8896 ],
-            [ "gPFBAFWKTO", 18405286462.1886 ],
-            [ "ShKjVCaIhO", 83805533569.5954 ]
-          ]
-        ],
-        [ "ZnlLyWTBBABy", 84937.3157598,
-          [ [ "subField1", "subNumber2" ],
-            [ "OhhOGYpVdm", 93433700854.0266 ],
-            [ "LOOBBBYhnI", 67318870030.6331 ],
-            [ "rfVgATtrKM", 64340538077.558 ]
-          ]
-        ],
-        [ "AHHnAvixMTaX", 46866.7575258,
-          [ [ "subField1", "subNumber2" ],
-            [ "NeMZpazxQZ", 45895664191.2099 ],
-            [ "gjMktjORQG", 43920800115.6553 ],
-            [ "jOhiAQzhKA", 51185780635.0626 ]
-          ]
-        ]
-      ]
-    }
+{
+  "json":[
+    [ "varChar2",
+      "NUM",
+      "CRSR" ],
+    [ "wKERFDSiWKjP",
+      82270.5508032,
+      [ [ "subField1",
+          "subNumber2" ],
+        [ "glzwoRKHDi",
+          84303519002.5887 ],
+        [ "sLdpoKtUtV",
+          18084687027.1173 ],
+        [ "gxxSIPwiXe",
+          65519335329.8466 ] ]
+    ],
+    [ "PnwTHzjNYcYK",
+      23459.6877103,
+      [ [ "subField1",
+          "subNumber2" ],
+        [ "cffSbtkNaR",
+          41661787803.74 ],
+        [ "lgcmRDUDku",
+          39830007084.9897 ],
+        [ "dEIMkzimlL",
+          45167351872.926 ] ]
+    ],
+    [ "YmIMPJmtYYia",
+      68969.8186501,
+      [ [ "subField1",
+          "subNumber2" ],
+        [ "YeEiZYUlPG",
+          81177093819.4247 ],
+        [ "IjPWdSgcsI",
+          74672220578.6526 ],
+        [ "lsQSKfVZyp", 
+          99434537851.8094 ] ]
+    ],
+    [ "pMipnDmEDmei",
+      18938.6663589,
+      [ [ "subField1",
+          "subNumber2" ],
+        [ "qPBLmpkJaC",
+          8345850947.9432 ],
+        [ "tblfRbbuXw",
+          30032882289.2958 ],
+        [ "owPOuxTbPw",
+          11520490169.0549 ] ]
+    ]
+  ]
+}
 
 We will leave it as an exercise to the reader to try objects and nested tables. However, since objects and nested tables cannot easily be "compacted", they are always presented as "normal".

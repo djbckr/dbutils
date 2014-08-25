@@ -125,7 +125,6 @@ public class RefCursorToJson {
 
     while (rsltSet.next()) {
 
-
       // if normal, make an object, else make an array
       if (compact == 0)
         out.beginObject();
@@ -293,8 +292,7 @@ public class RefCursorToJson {
         return;
       }
 
-      throw new SQLException("An unsupported datatype was encountered: "
-          + typeName);
+      throw new SQLException("An unsupported datatype was encountered: " + typeName);
     }
     out.nullValue();
   }

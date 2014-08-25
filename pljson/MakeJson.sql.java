@@ -46,13 +46,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 public class MakeJson {
-  // //////////////////////////////////////////////////////////////////////////////
-  // // makeJson :: make a JSON string from a tree of Oracle Objects     //////////
-  // //////////////////////////////////////////////////////////////////////////////
-  public static Clob makeJson (
-        Struct pson,
-        int pretty,
-        String[] err )
+  ////////////////////////////////////////////////////////////////////////////////
+  //// makeJson :: make a JSON string from a tree of Oracle Objects     //////////
+  ////////////////////////////////////////////////////////////////////////////////
+  public static Clob makeJson ( Struct   pson,
+                                int      pretty,
+                                String[] err )
   {
     Clob rslt = null;
     err[0] = null;
