@@ -1,6 +1,6 @@
 prompt creating table and array objects...
 -- SQL nested table types (requires storage clause if used in a table)
-create or replace type strtable as table of varchar2(20000 char);
+create or replace type strtable as table of varchar2(4000 char);
 /
 create or replace type numtable as table of number;
 /
@@ -15,7 +15,7 @@ create or replace type anytable as table of anydata;
 
 
 -- SQL array types (does not require storage clause if used in a table)
-create or replace type strarray as varray(100) of varchar2(20000 char);
+create or replace type strarray as varray(100) of varchar2(4000 char);
 /
 create or replace type numarray as varray(100) of number;
 /
