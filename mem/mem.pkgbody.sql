@@ -393,11 +393,11 @@ begin
 
   case tn
     when cRaw          then return ad.accessRaw();
-    when cVarchar2     then return rawToHex(ad.accessVarchar2());
-    when cChar         then return rawToHex(ad.accessChar());
-    when cVarchar      then return rawToHex(ad.accessVarchar());
-    when cNChar        then return rawToHex(ad.accessNChar());
-    when cNVarchar2    then return rawToHex(ad.accessNVarchar2());
+    when cVarchar2     then return hexToRaw(ad.accessVarchar2());
+    when cChar         then return hexToRaw(ad.accessChar());
+    when cVarchar      then return hexToRaw(ad.accessVarchar());
+    when cNChar        then return hexToRaw(ad.accessNChar());
+    when cNVarchar2    then return hexToRaw(ad.accessNVarchar2());
     else return null;
   end case;
 
