@@ -81,6 +81,14 @@ function split_string_strarray
 function random_guid
   return raw;
 
+function raw_bit_or
+  ( inp  in  rawarray )
+  return raw;
+
+function raw_bit_and
+  ( inp  in  rawarray )
+  return raw;
+
 end utl;
 /
 show errors package utl

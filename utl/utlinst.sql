@@ -4,7 +4,7 @@ create or replace type strtable as table of varchar2(4000 char);
 /
 create or replace type numtable as table of number;
 /
-create or replace type rawtable as table of raw(32);
+create or replace type rawtable as table of raw(256);
 /
 create or replace type tstable as table of timestamp;
 /
@@ -19,7 +19,7 @@ create or replace type strarray as varray(100) of varchar2(4000 char);
 /
 create or replace type numarray as varray(100) of number;
 /
-create or replace type rawarray as varray(100) of raw(32);
+create or replace type rawarray as varray(100) of raw(256);
 /
 create or replace type tsarray as varray(100) of timestamp;
 /

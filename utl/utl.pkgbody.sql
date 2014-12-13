@@ -122,6 +122,84 @@ begin
   return hextoraw(int_rand_guid());
 end random_guid;
 -------------------------------------------------------------------------------
+function raw_bit_or
+  ( inp  in  rawarray )
+  return raw
+is
+  vRslt raw(256) := HexToRaw('00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
+  indx binary_integer;
+  len  binary_integer := 0;
+  tmp  binary_integer;
+begin
+  if inp is null then
+    return null;
+  end if;
+
+  if inp.count() = 0 then
+    return null;
+  end if;
+
+  indx := inp.first;
+
+  <<mainLoop>>
+  loop
+    tmp := utl_raw.length(inp(indx));
+
+    if tmp > len then
+      len := tmp;
+    end if;
+
+    rslt := utl_raw.bit_or(rslt, inp(indx));
+
+    indx := inp.next(indx);
+
+    exit mainLoop when indx is null;
+
+  end loop mainLoop;
+
+  return utl_raw.substr(rslt, 1, len);
+
+end raw_bit_or;
+-------------------------------------------------------------------------------
+function raw_bit_and
+  ( inp  in  rawarray )
+  return raw
+is
+  vRslt raw(256) := HexToRaw('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
+  indx binary_integer;
+  len  binary_integer := 0;
+  tmp  binary_integer;
+begin
+  if inp is null then
+    return null;
+  end if;
+
+  if inp.count() = 0 then
+    return null;
+  end if;
+
+  indx := inp.first;
+
+  <<mainLoop>>
+  loop
+    tmp := utl_raw.length(inp(indx));
+
+    if tmp > len then
+      len := tmp;
+    end if;
+
+    rslt := utl_raw.bit_and(rslt, inp(indx));
+
+    indx := inp.next(indx);
+
+    exit mainLoop when indx is null;
+
+  end loop mainLoop;
+
+  return utl_raw.substr(rslt, 1, len);
+
+end raw_bit_and;
+-------------------------------------------------------------------------------
 end utl;
 /
 show errors package body utl
