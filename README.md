@@ -175,4 +175,10 @@ installer script since there is a security issue there. You can look around
 in the source code to see how it works and if you decide you want to install it,
 just un-comment the line in the installer.
 
+### INTERVAL DAY TO SECOND aggregation
+Oracle doesn't have aggregation (`avg()`, `sum()`) on INTERVAL data types. We have
+created two functions for just that purpose: `avg_dsinterval()` and `sum_dsinterval()`.
+These functions should work fully on regular as well as parallel and analytic queries.
 
+Note that INTERVAL YEAR TO MONTH is not supported, only DAY TO SECOND is. This also
+gives you an idea of how to write your own aggregate functions if you like.
