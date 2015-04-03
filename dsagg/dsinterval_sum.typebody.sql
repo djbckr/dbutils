@@ -34,6 +34,9 @@ begin
 
   if actx is null then
     actx := new dsinterval_sum(interval '0' second, 0);
+  else
+    actx.total := interval '0' second;
+    actx.items := 0;
   end if;
 
   return ODCIConst.Success;
