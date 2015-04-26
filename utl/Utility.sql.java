@@ -29,6 +29,7 @@ package net.rubywillow;
     EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
  */
+
 import java.io.*;
 import java.math.BigDecimal;
 import java.sql.Array;
@@ -43,24 +44,17 @@ import oracle.sql.*;
 public class Utility {
 
   private static PreparedStatement dbmsout;
+  private static Connection conn;
 
-  public static void splitString (
-        String      strToSplit,
-        String      delimiter,
-        String      returnType,
-        BigDecimal  trim,
-        Array[]     rslt,
-        String[]    err )
-  {
+  public static void splitString(String strToSplit, String delimiter, String returnType, int trim, Array[] rslt, String[] err) {
     try {
 
-      if (strToSplit == null || strToSplit.length() == 0 || delimiter == null
-          || delimiter.length() == 0)
+      if (strToSplit == null || strToSplit.length() == 0 || delimiter == null || delimiter.length() == 0)
         return;
 
       Object[] strArray = strToSplit.split(delimiter);
 
-      if (trim.intValue() != 0) {
+      if (trim != 0) {
         ArrayList<String> arr = new ArrayList<String>(strArray.length);
 
         for (String str : (String[]) strArray) {
@@ -103,18 +97,19 @@ public class Utility {
   }
 
   protected static Connection getConn() throws Exception {
-    return DriverManager.getConnection("jdbc:default:connection:");
+    if (conn == null)
+      conn = DriverManager.getConnection("jdbc:default:connection:");
+    return conn;
   }
 
-  protected static void doOutput( String stat ) {
+  protected static void doOutput(String stat) {
     try {
-      if ( dbmsout == null ) {
+      if (dbmsout == null) {
         dbmsout = getConn().prepareStatement("begin dbms_output.put_line(:v); end;");
       }
       dbmsout.setString(1, stat);
       dbmsout.execute();
-    }
-    catch ( Exception e ) {
+    } catch (Exception e) {
       // hope this doesn't happen, but if it does, just let it be
     }
   }

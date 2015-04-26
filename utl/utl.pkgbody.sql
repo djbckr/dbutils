@@ -48,16 +48,16 @@ procedure int_split_string_strtable
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
     returnType         in   varchar2,
-    do_trim            in   number,
+    do_trim            in   binary_integer,
     rslt               out  strtable,
     err                out  varchar2 )
 is language java
-name 'net.rubywillow.Utility.splitString(java.lang.String, java.lang.String, java.lang.String, java.math.BigDecimal, java.sql.Array[], java.lang.String[])';
+name 'net.rubywillow.Utility.splitString(java.lang.String, java.lang.String, java.lang.String, int, java.sql.Array[], java.lang.String[])';
 -------------------------------------------------------------------------------
 function split_string_strtable
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
-    return_trim        in   varchar2 default '*' )
+    return_trim        in   varchar2 default bool.cTrue )
   return strtable deterministic
 is
   rslt    strtable;
@@ -68,7 +68,7 @@ begin
     ( string_to_split,
       delimiter,
       'STRTABLE',
-      case return_trim when '*' then 1 else 0 end,
+      case return_trim when bool.cTrue then 1 else 0 end,
       rslt, err );
 
   checkError(err);
@@ -81,16 +81,16 @@ procedure int_split_string_strarray
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
     returnType         in   varchar2,
-    do_trim            in   number,
+    do_trim            in   binary_integer,
     rslt               out  strarray,
     err                out  varchar2 )
 is language java
-name 'net.rubywillow.Utility.splitString(java.lang.String, java.lang.String, java.lang.String, java.math.BigDecimal, java.sql.Array[], java.lang.String[])';
+name 'net.rubywillow.Utility.splitString(java.lang.String, java.lang.String, java.lang.String, int, java.sql.Array[], java.lang.String[])';
 -------------------------------------------------------------------------------
 function split_string_strarray
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
-    return_trim        in   varchar2 default '*' )
+    return_trim        in   varchar2 default bool.cTrue )
   return strarray deterministic
 is
   rslt    strarray;
@@ -101,7 +101,7 @@ begin
     ( string_to_split,
       delimiter,
       'STRARRAY',
-      case return_trim when '*' then 1 else 0 end,
+      case return_trim when bool.cTrue then 1 else 0 end,
       rslt, err );
 
   checkError(err);

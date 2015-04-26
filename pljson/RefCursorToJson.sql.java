@@ -51,6 +51,7 @@ import com.google.gson.stream.JsonWriter;
 public class RefCursorToJson {
 
   private static JsonWriter out;
+  private static final char[] hexArray = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
   /*
    * This method streams the result-set directly to a CLOB, but uses the nicely
@@ -58,14 +59,7 @@ public class RefCursorToJson {
    * rather little memory and is pretty fast all in all.
    */
 
-  public static Clob refCursorToJson (
-        ResultSet rsltSet,
-        String rtName,
-        int compact,
-        int pretty,
-        String dateFormat,
-        String[] err )
-  {
+  public static Clob refCursorToJson(ResultSet rsltSet, String rtName, int compact, int pretty, String dateFormat, String[] err) {
 
     Clob rslt = null;
 
@@ -101,16 +95,12 @@ public class RefCursorToJson {
     return rslt;
   }
 
-  private static void processResultSet (
-        OracleResultSet rsltSet,
-        int compact,
-        SimpleDateFormat sdf ) throws Exception
-  {
+  private static void processResultSet(OracleResultSet rsltSet, int compact, SimpleDateFormat sdf) throws Exception {
 
     ResultSetMetaData md = rsltSet.getMetaData();
     String[] cols = new String[md.getColumnCount()];
     for (int i = 0; i < cols.length; i++) {
-      cols[i] = md.getColumnLabel(i+1);
+      cols[i] = md.getColumnLabel(i + 1);
     }
 
     out.beginArray(); // outer array open
@@ -131,14 +121,14 @@ public class RefCursorToJson {
       else
         out.beginArray();
 
-      for (int i = 0; i < cols.length; i++) {
+      for (int i = 0, j = 1; i < cols.length; i++, j++) {
 
         // if normal, assign member name
         if (compact == 0)
           out.name(cols[i]);
 
         // this writes a value, be it a primitive, or complex type
-        processObject(rsltSet.getObject(i+1), compact, sdf);
+        processObject(rsltSet.getObject(j), compact, sdf);
 
       }
 
@@ -152,157 +142,37 @@ public class RefCursorToJson {
     out.endArray(); // outer array close
   }
 
-  private static void processObject (
-        Object obj,
-        int compact,
-        SimpleDateFormat sdf ) throws Exception
-  {
-
-    // based on the canonical class name, get the data into
-    // a JSON-compatible format
-
-    if (obj != null) {
-      String typeName = obj.getClass().getCanonicalName();
-
-      if (typeName.equals("java.lang.String")) {
-        out.value((String) obj);
-        return;
-      }
-
-      if (typeName.equals("java.math.BigDecimal")) {
-        out.value((BigDecimal) obj);
-        return;
-      }
-
-      if (typeName.equals("java.lang.Float")) {
-        out.value(new BigDecimal((Float) obj));
-        return;
-      }
-
-      if (typeName.equals("java.lang.Double")) {
-        out.value(new BigDecimal((Double) obj));
-        return;
-      }
-
-      if (typeName.equals("java.sql.Timestamp")) {
-        out.value(sdf.format((Timestamp) obj));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.TIMESTAMP")) {
-        out.value(sdf.format(((oracle.sql.TIMESTAMP) obj).timestampValue()));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.TIMESTAMPTZ")) {
-        out.value(sdf.format(((oracle.sql.TIMESTAMPTZ) obj)
-            .timestampValue(Utility.getConn())));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.TIMESTAMPLTZ")) {
-        out.value(sdf.format(((oracle.sql.TIMESTAMPLTZ) obj).timestampValue(
-            Utility.getConn(), new GregorianCalendar())));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.INTERVALYM")) {
-        out.value(((oracle.sql.INTERVALYM) obj).stringValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.INTERVALDS")) {
-        out.value(((oracle.sql.INTERVALDS) obj).stringValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.CLOB")) {
-        out.value(((oracle.sql.CLOB) obj).stringValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.NCLOB")) {
-        out.value(((oracle.sql.NCLOB) obj).stringValue());
-        return;
-      }
-
-      if (typeName.equals("byte[]")) {
-        out.value(bytesToHex((byte[]) obj));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.STRUCT")) {
-        // complex object, and recursive
-        processSQLObject((oracle.sql.STRUCT) obj, compact, sdf);
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.ARRAY")) {
-        // recursive result set
-        processArray((oracle.sql.ARRAY) obj, compact, sdf);
-        return;
-      }
-
-      if (typeName.equals("oracle.jdbc.driver.OracleResultSetImpl")) {
-        // recursive result set
-        processResultSet((oracle.jdbc.OracleResultSet) obj, compact, sdf);
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.ANYDATA")) {
-        // recursive call
-        processObject(((ANYDATA) obj).accessDatum(), compact, sdf);
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.BINARY_DOUBLE")) {
-        out.value(((oracle.sql.BINARY_DOUBLE) obj).bigDecimalValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.BINARY_FLOAT")) {
-        out.value(((oracle.sql.BINARY_FLOAT) obj).bigDecimalValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.CHAR")) {
-        out.value(((oracle.sql.CHAR) obj).stringValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.DATE")) {
-        out.value(sdf.format(((oracle.sql.DATE) obj).timestampValue()));
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.NUMBER")) {
-        out.value(((oracle.sql.NUMBER) obj).bigDecimalValue());
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.OPAQUE")) {
-        // recursive call
-        processObject(new ANYDATA((oracle.sql.OPAQUE) obj).accessDatum(),
-            compact, sdf);
-        return;
-      }
-
-      if (typeName.equals("oracle.sql.RAW")) {
-        out.value(bytesToHex(((oracle.sql.RAW) obj).getBytes()));
-        return;
-      }
-
-      throw new SQLException("An unsupported datatype was encountered: " + typeName);
-    }
-    out.nullValue();
+  private static void processObject(Object obj, int compact, SimpleDateFormat sdf) throws Exception {
+    if (obj == null) out.nullValue();
+    else if (obj instanceof java.lang.String)         out.value((String) obj);
+    else if (obj instanceof java.math.BigDecimal)     out.value((BigDecimal) obj);
+    else if (obj instanceof oracle.sql.CHAR)          out.value(((oracle.sql.CHAR) obj).stringValue());
+    else if (obj instanceof oracle.sql.DATE)          out.value(sdf.format(((oracle.sql.DATE) obj).timestampValue()));
+    else if (obj instanceof oracle.sql.NUMBER)        out.value(((oracle.sql.NUMBER) obj).bigDecimalValue());
+    else if (obj instanceof java.lang.Float)          out.value(new BigDecimal((Float) obj));
+    else if (obj instanceof java.lang.Double)         out.value(new BigDecimal((Double) obj));
+    else if (obj instanceof java.sql.Timestamp)       out.value(sdf.format((Timestamp) obj));
+    else if (obj instanceof oracle.sql.TIMESTAMP)     out.value(sdf.format(((oracle.sql.TIMESTAMP) obj).timestampValue()));
+    else if (obj instanceof oracle.sql.TIMESTAMPTZ)   out.value(sdf.format(((oracle.sql.TIMESTAMPTZ) obj).timestampValue(Utility.getConn())));
+    else if (obj instanceof oracle.sql.TIMESTAMPLTZ)  out.value(sdf.format(((oracle.sql.TIMESTAMPLTZ) obj).timestampValue(Utility.getConn(), new GregorianCalendar())));
+    else if (obj instanceof oracle.sql.INTERVALYM)    out.value(((oracle.sql.INTERVALYM) obj).stringValue());
+    else if (obj instanceof oracle.sql.INTERVALDS)    out.value(((oracle.sql.INTERVALDS) obj).stringValue());
+    else if (obj instanceof oracle.sql.CLOB)          out.value(((oracle.sql.CLOB) obj).stringValue());
+    else if (obj instanceof oracle.sql.NCLOB)         out.value(((oracle.sql.NCLOB) obj).stringValue());
+    else if (obj instanceof oracle.sql.RAW)           out.value(bytesToHex(((oracle.sql.RAW) obj).getBytes()));
+    else if (obj instanceof byte[])                   out.value(bytesToHex((byte[]) obj));
+    else if (obj instanceof oracle.sql.STRUCT)        processSQLObject((oracle.sql.STRUCT) obj, compact, sdf);
+    else if (obj instanceof oracle.sql.ARRAY)         processArray((oracle.sql.ARRAY) obj, compact, sdf);
+    else if (obj instanceof ResultSet)                processResultSet((oracle.jdbc.OracleResultSet) obj, compact, sdf);
+    else if (obj instanceof oracle.sql.ANYDATA)       processObject(((ANYDATA) obj).accessDatum(), compact, sdf);
+    else if (obj instanceof oracle.sql.BINARY_DOUBLE) out.value(((oracle.sql.BINARY_DOUBLE) obj).bigDecimalValue());
+    else if (obj instanceof oracle.sql.BINARY_FLOAT)  out.value(((oracle.sql.BINARY_FLOAT) obj).bigDecimalValue());
+    else if (obj instanceof oracle.sql.OPAQUE)        processObject(new ANYDATA((oracle.sql.OPAQUE) obj).accessDatum(), compact, sdf);
+    else throw new SQLException("An unsupported datatype was encountered: " + obj.getClass().getCanonicalName());
   }
 
   // nested array
-  private static void processArray (
-        ARRAY obj,
-        int compact,
-        SimpleDateFormat sdf ) throws Exception
-  {
+  private static void processArray(ARRAY obj, int compact, SimpleDateFormat sdf) throws Exception {
 
     // An array is just a result set. The first column is just an index number,
     // the second column is the actual content we want
@@ -317,11 +187,7 @@ public class RefCursorToJson {
   }
 
   // nested object
-  private static void processSQLObject (
-        STRUCT obj,
-        int compact,
-        SimpleDateFormat sdf ) throws Exception
-  {
+  private static void processSQLObject(STRUCT obj, int compact, SimpleDateFormat sdf) throws Exception {
 
     // get information about the object
     ResultSetMetaData smd = obj.getDescriptor().getMetaData();
@@ -346,7 +212,6 @@ public class RefCursorToJson {
 
   // take binary data and make it hexadecimal
   private static String bytesToHex(byte[] raw) {
-    char[] hexArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
     char[] hexChars = new char[raw.length * 2];
     int v;
     for (int j = 0; j < raw.length; j++) {

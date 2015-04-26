@@ -116,15 +116,6 @@ begin
   -- get our timing information first, since timing is semi-critical
   vTiming := timerStop(true);
 
-  -- get the system-wide log-level
-  vGlobalLogLevel := nvl(cfg.getCfgRaw(cTrcLogLvl), ff);
-
-  -- and see if it changed. If so, reset our session variables
-  if gGlobalLogLevel != vGlobalLogLevel then
-    gSessionLogLevel := vGlobalLogLevel;
-    gGlobalLogLevel  := vGlobalLogLevel;
-  end if;
-
   if iLogLevel > gSessionLogLevel then
     return;
   end if;

@@ -70,12 +70,14 @@ alter session set current_schema = "RubyWillow";
 @@pljson/pljsoninst.sql
 @@tblaudit/tblauditinst.sql
 @@whirlpool/whirlpoolinst.sql
-@@dsagg/dsagg.sql
+@@dsagg/install_dsagg.sql
 
 /* NOTE: the EXIF utility has some potential security issues,
    so we don't recommend installing it on a system that should
    be more secure. Just uncomment the below line to install it.
 */
 -- @@exif/exifinst.sql
+
+prompt Finished Installing RubyWillow Database Utilities...
 
 exit

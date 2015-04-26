@@ -63,13 +63,13 @@ procedure checkError
 function split_string_strtable
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
-    return_trim        in   varchar2 default '*' )
+    return_trim        in   varchar2 default bool.cTrue )
   return strtable deterministic;
 
 function split_string_strarray
   ( string_to_split    in   varchar2,
     delimiter          in   varchar2,
-    return_trim        in   varchar2 default '*' )
+    return_trim        in   varchar2 default bool.cTrue )
   return strarray deterministic;
 
 /*  FUNCTION RANDOM_GUID
