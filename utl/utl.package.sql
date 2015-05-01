@@ -89,6 +89,37 @@ function raw_bit_and
   ( inp  in  rawarray )
   return raw;
 
+/*  FUNCTION MAKE_ID
+
+    Return a number suitable for system-wide ID values.
+    Each value has the format YYYYMMDDhhmmssffffffzzzzz where
+      YYYY   is 4-digit year
+      MM     is 2-digit month
+      DD     is 2-digit day
+      hh     is 2-digit 24-hour
+      mm     is 2-digit minute
+      ss     is 2-digit second
+      ffffff is 6-digit sub-second
+      zzzzz  is 5-digit sequence number (loops between 00000 and 99999)
+
+    For all practical purposes, it will be impossible to generate a duplicate value
+    even on the fastest of systems. The benefit of this function is that it makes
+    it easy to see when the ID was generated (see timestamp_from_id() below). It's also
+    sequential (always grows) so indexing is tighter than a random ID.
+*/
+function make_id
+  return number
+  parallel_enable;
+
+/*  FUNCTION TIMESTAMP_FROM_ID
+
+    For a given ID above, return the timestamp value in the local session time zone.
+*/
+function timestamp_from_id
+  (id number)
+  return timestamp with time zone
+  deterministic parallel_enable;
+
 end utl;
 /
 show errors package utl

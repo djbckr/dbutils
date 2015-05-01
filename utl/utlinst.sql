@@ -81,6 +81,14 @@ grant execute on tsarray to public
 grant execute on anyarray to public
 /
 
+create sequence looper
+  increment by 1
+  start with 0
+  minvalue 0
+  maxvalue 99999
+  cycle noorder
+  cache 100;
+
 prompt creating the utl package...
 @@Utility.sql.java
 

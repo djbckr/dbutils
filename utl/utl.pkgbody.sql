@@ -200,6 +200,34 @@ begin
 
 end raw_bit_and;
 -------------------------------------------------------------------------------
+function make_id
+  return number
+  parallel_enable
+is
+begin
+  -- use UTC so we don't deal with Daylight Saving time changes
+  return to_number(to_char(sys_extract_utc(systimestamp), 'YYYYMMDDHH24MISSFF6')||to_char(looper.nextval, 'FM00009'));
+end make_id;
+-------------------------------------------------------------------------------
+function timestamp_from_id
+  ( id number )
+  return timestamp with time zone
+  deterministic parallel_enable
+is
+  x text;
+begin
+  if id is null then
+    return null;
+  end if;
+  x := to_char(id);
+  x := substr(x, 1, 20);
+  if length(x) <> 20 then
+    raise_application_error(-20001, 'ID is not a valid format');
+  end if;
+  -- convert x to timestamp, add UTC time zone, then move to local
+  return from_tz(to_timestamp(x, 'YYYYMMDDHH24MISSFF6'), 'UTC') at local;
+end timestamp_from_id;
+-------------------------------------------------------------------------------
 end utl;
 /
 show errors package body utl
