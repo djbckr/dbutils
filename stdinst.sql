@@ -71,6 +71,7 @@ alter session set current_schema = "RubyWillow";
 @@tblaudit/tblauditinst.sql
 @@whirlpool/whirlpoolinst.sql
 @@dsagg/install_dsagg.sql
+@@i18n/install_i18n.sql
 
 /* NOTE: the EXIF utility has some potential security issues,
    so we don't recommend installing it on a system that should
