@@ -339,56 +339,56 @@ The normal JSON looks like:
 
 And the compact JSON looks like:
 
-{
-  "json":[
-    [ "varChar2",
-      "NUM",
-      "CRSR" ],
-    [ "wKERFDSiWKjP",
-      82270.5508032,
-      [ [ "subField1",
-          "subNumber2" ],
-        [ "glzwoRKHDi",
-          84303519002.5887 ],
-        [ "sLdpoKtUtV",
-          18084687027.1173 ],
-        [ "gxxSIPwiXe",
-          65519335329.8466 ] ]
-    ],
-    [ "PnwTHzjNYcYK",
-      23459.6877103,
-      [ [ "subField1",
-          "subNumber2" ],
-        [ "cffSbtkNaR",
-          41661787803.74 ],
-        [ "lgcmRDUDku",
-          39830007084.9897 ],
-        [ "dEIMkzimlL",
-          45167351872.926 ] ]
-    ],
-    [ "YmIMPJmtYYia",
-      68969.8186501,
-      [ [ "subField1",
-          "subNumber2" ],
-        [ "YeEiZYUlPG",
-          81177093819.4247 ],
-        [ "IjPWdSgcsI",
-          74672220578.6526 ],
-        [ "lsQSKfVZyp", 
-          99434537851.8094 ] ]
-    ],
-    [ "pMipnDmEDmei",
-      18938.6663589,
-      [ [ "subField1",
-          "subNumber2" ],
-        [ "qPBLmpkJaC",
-          8345850947.9432 ],
-        [ "tblfRbbuXw",
-          30032882289.2958 ],
-        [ "owPOuxTbPw",
-          11520490169.0549 ] ]
-    ]
-  ]
-}
+    {
+      "json":[
+        [ "varChar2",
+          "NUM",
+          "CRSR" ],
+        [ "wKERFDSiWKjP",
+          82270.5508032,
+          [ [ "subField1",
+              "subNumber2" ],
+            [ "glzwoRKHDi",
+              84303519002.5887 ],
+            [ "sLdpoKtUtV",
+              18084687027.1173 ],
+            [ "gxxSIPwiXe",
+              65519335329.8466 ] ]
+        ],
+        [ "PnwTHzjNYcYK",
+          23459.6877103,
+          [ [ "subField1",
+              "subNumber2" ],
+            [ "cffSbtkNaR",
+              41661787803.74 ],
+            [ "lgcmRDUDku",
+              39830007084.9897 ],
+            [ "dEIMkzimlL",
+              45167351872.926 ] ]
+        ],
+        [ "YmIMPJmtYYia",
+          68969.8186501,
+          [ [ "subField1",
+              "subNumber2" ],
+            [ "YeEiZYUlPG",
+              81177093819.4247 ],
+            [ "IjPWdSgcsI",
+              74672220578.6526 ],
+            [ "lsQSKfVZyp", 
+              99434537851.8094 ] ]
+        ],
+        [ "pMipnDmEDmei",
+          18938.6663589,
+          [ [ "subField1",
+              "subNumber2" ],
+            [ "qPBLmpkJaC",
+              8345850947.9432 ],
+            [ "tblfRbbuXw",
+              30032882289.2958 ],
+            [ "owPOuxTbPw",
+              11520490169.0549 ] ]
+        ]
+      ]
+    }
 
 We will leave it as an exercise to the reader to try objects and nested tables. However, since objects and nested tables cannot easily be "compacted", they are always presented as "normal".
