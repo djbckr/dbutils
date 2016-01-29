@@ -27,7 +27,11 @@ create or replace package zip authid definer is
 */
 
 /*  DEFLATE/INFLATE
-    Zip file utilities */
+    Zip file utilities
+    
+    Note that the BLOBs these functions return are temporary,
+    and should be freed using dbms_lob.freeTemporary().
+*/
 function deflate
   ( iFiles in zip_table )
   return blob;
