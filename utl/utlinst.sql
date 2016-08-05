@@ -87,7 +87,7 @@ create sequence looper
   minvalue 0
   maxvalue 99999
   cycle noorder
-  cache 100;
+  cache 1000;
 
 prompt creating the utl package...
 @@Utility.sql.java
