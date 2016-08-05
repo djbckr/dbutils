@@ -11,7 +11,9 @@ end;
 /
 
 @@i18n.sql
+
 @@i18n.package.sql
-@@i18n.pkgbody.sql
 @@i18n_adm.package.sql
+
+@@i18n.pkgbody.sql
 @@i18n_adm.pkgbody.sql

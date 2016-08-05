@@ -228,6 +228,18 @@ begin
   return from_tz(to_timestamp(x, 'YYYYMMDDHH24MISSFF6'), 'UTC') at local;
 end timestamp_from_id;
 -------------------------------------------------------------------------------
+function int_driver_version
+  return varchar2
+is language java
+name 'net.rubywillow.Utility.driverVersion() return java.lang.String';
+-------------------------------------------------------------------------------
+function driver_version
+  return text
+is
+begin
+  return int_driver_version;
+end driver_version;
+-------------------------------------------------------------------------------
 end utl;
 /
 show errors package body utl

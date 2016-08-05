@@ -30,93 +30,91 @@ package net.rubywillow;
 
  */
 import java.io.*;
+import java.sql.Blob;
+import java.sql.Clob;
 
 public class WhirlpoolRW {
 
   static final int BUFF_SIZE = 8192; // manage in 8KB chunks
 
-  private static oracle.sql.RAW whirlpool(byte[] input) {
+  private static oracle.sql.RAW whirlpool( byte[] input ) {
     byte[] digest = new byte[Whirlpool.DIGESTBYTES];
     Whirlpool w = new Whirlpool();
     w.NESSIEinit();
-    w.NESSIEadd(input, input.length * 8);
-    w.NESSIEfinalize(digest);
-    return new oracle.sql.RAW(digest);
+    w.NESSIEadd( input, input.length * 8 );
+    w.NESSIEfinalize( digest );
+    return new oracle.sql.RAW( digest );
   }
 
-  public static void whirlpoolString (
-        String cleartext,
-        String charset,
-        oracle.sql.RAW[] rslt,
-        String[] err )
-  {
+  public static void whirlpoolString(
+          String cleartext,
+          String charset,
+          oracle.sql.RAW[] rslt,
+          String[] err ) {
     try {
-      rslt[0] = whirlpool(cleartext.getBytes(charset));
-    } catch (Exception e) {
-      err[0] = Utility.fmtError(e);
+      rslt[0] = whirlpool( cleartext.getBytes( charset ) );
+    } catch ( Exception e ) {
+      err[0] = Utility.fmtError( e );
     }
   }
 
-  public static void whirlpoolRaw (
-        oracle.sql.RAW cleartext,
-        oracle.sql.RAW[] rslt,
-        String[] err )
-  {
+  public static void whirlpoolRaw(
+          oracle.sql.RAW cleartext,
+          oracle.sql.RAW[] rslt,
+          String[] err ) {
     try {
-      rslt[0] = whirlpool((byte[]) cleartext.toJdbc());
-    } catch (Exception e) {
-      err[0] = Utility.fmtError(e);
+      rslt[0] = whirlpool( (byte[]) cleartext.toJdbc() );
+    } catch ( Exception e ) {
+      err[0] = Utility.fmtError( e );
     }
   }
 
-  public static void whirlpoolCLOB (
-        oracle.sql.CLOB  cleartext,
-        String           charset,
-        oracle.sql.RAW[] rslt,
-        String[]         err)
-  {
+  public static void whirlpoolCLOB(
+          Clob cleartext,
+          String charset,
+          oracle.sql.RAW[] rslt,
+          String[] err ) {
     try {
       int len;
       byte[] digest = new byte[Whirlpool.DIGESTBYTES];
       char[] buffer = new char[BUFF_SIZE];
       byte[] rawbuf;
-      Reader instream = cleartext.getCharacterStream(1L);
+      Reader instream = cleartext.getCharacterStream();
       Whirlpool w = new Whirlpool();
       w.NESSIEinit();
-      len = instream.read(buffer);
-      while (len > 0) {
-        rawbuf = new String(buffer, 0, len).getBytes(charset);
-        w.NESSIEadd(rawbuf, rawbuf.length * 8);
-        len = instream.read(buffer);
+      len = instream.read( buffer );
+      while ( len > 0 ) {
+        rawbuf = new String( buffer, 0, len ).getBytes( charset );
+        w.NESSIEadd( rawbuf, rawbuf.length * 8 );
+        len = instream.read( buffer );
       }
-      w.NESSIEfinalize(digest);
-      rslt[0] =  new oracle.sql.RAW(digest);
-    } catch (Exception e) {
-      err[0] = Utility.fmtError(e);
+      w.NESSIEfinalize( digest );
+      rslt[0] = new oracle.sql.RAW( digest );
+    } catch ( Exception e ) {
+      err[0] = Utility.fmtError( e );
     }
   }
 
-  public static void whirlpoolBLOB (
-        oracle.sql.BLOB cleartext,
-        oracle.sql.RAW[] rslt,
-        String[] err )
-  {
+  public static void whirlpoolBLOB(
+          Blob cleartext,
+          oracle.sql.RAW[] rslt,
+          String[] err ) {
     try {
       int len;
       byte[] digest = new byte[Whirlpool.DIGESTBYTES];
       byte[] buffer = new byte[BUFF_SIZE];
-      InputStream instream = cleartext.getBinaryStream(1L);
+      InputStream instream = cleartext.getBinaryStream();
       Whirlpool w = new Whirlpool();
       w.NESSIEinit();
-      len = instream.read(buffer);
-      while (len > 0) {
-        w.NESSIEadd(buffer, len * 8);
-        len = instream.read(buffer);
+      len = instream.read( buffer );
+      while ( len > 0 ) {
+        w.NESSIEadd( buffer, len * 8 );
+        len = instream.read( buffer );
       }
-      w.NESSIEfinalize(digest);
-      rslt[0] =  new oracle.sql.RAW(digest);
-    } catch (Exception e) {
-      err[0] = Utility.fmtError(e);
+      w.NESSIEfinalize( digest );
+      rslt[0] = new oracle.sql.RAW( digest );
+    } catch ( Exception e ) {
+      err[0] = Utility.fmtError( e );
     }
   }
 

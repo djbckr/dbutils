@@ -120,6 +120,9 @@ function timestamp_from_id
   return timestamp with time zone
   deterministic parallel_enable;
 
+function driver_version
+  return text;
+
 end utl;
 /
 show errors package utl
