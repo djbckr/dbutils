@@ -9,7 +9,7 @@ with the following type of code (a contrived example):
 
 While I won't get into the details in this document, this is occasionally difficult to manage in code when you have variations of a single statement and you need to provide different bind variables for similar statements.
 
-You can use SYS_CONTEXT() to make bind variables, as follows:
+You *could* use SYS_CONTEXT() to make bind variables, as follows:
 
     execute immediate q'[
       select something from t1 where f1 = sys_context('myctx','myvar')
