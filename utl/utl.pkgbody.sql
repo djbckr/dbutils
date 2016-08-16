@@ -206,7 +206,7 @@ function make_id
 is
 begin
   -- use UTC so we don't deal with Daylight Saving time changes
-  return to_number(to_char(sys_extract_utc(systimestamp), 'YYYYMMDDHH24MISSFF6')||to_char(looper.nextval, 'FM00009'));
+  return to_number(to_char(sys_extract_utc(systimestamp), 'YYYYMMDDHH24MISSFF6')||to_char(looper.nextval, 'FM0009'));
 end make_id;
 -------------------------------------------------------------------------------
 function timestamp_from_id

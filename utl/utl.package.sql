@@ -100,7 +100,7 @@ function raw_bit_and
       mm     is 2-digit minute
       ss     is 2-digit second
       ffffff is 6-digit sub-second
-      zzzzz  is 5-digit sequence number (loops between 00000 and 99999)
+      zzzz   is 4-digit sequence number (loops between 0000 and 9999)
 
     For all practical purposes, it will be impossible to generate a duplicate value
     even on the fastest of systems. The benefit of this function is that it makes
