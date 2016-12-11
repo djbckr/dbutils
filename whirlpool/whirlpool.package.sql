@@ -43,11 +43,13 @@ create or replace package whirlpool authid definer is
 
 function whirlpoolString
   ( input   in  varchar2,
-    charset in  varchar2 default 'UTF-8' )
+    charset in  varchar2 default 'UTF-8',
+    rounds  in  positiven default 1 )
   return raw deterministic;
 
 function whirlpoolRaw
-  ( input  in   raw )
+  ( input  in   raw,
+    rounds in   positiven default 1 )
   return raw deterministic;
 
 function whirlpoolClob

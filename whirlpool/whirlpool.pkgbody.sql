@@ -26,31 +26,29 @@ create or replace package body whirlpool is
     EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
--- Whirlpool hash value when no value (NULL) is passed. It's easier to do this than to fiddle around with NULL values in Java.
-nullhash constant raw(64) := hexToRaw('19FA61D75522A4669B44E39C1D2E1726C530232130D407F89AFEE0964997F7A73E83BE698B288FEBCF88E3E03C4F0757EA8964E59B63D93708B138CC42A66EB3');
+  nullhash constant raw(64) := hexToRaw('19FA61D75522A4669B44E39C1D2E1726C530232130D407F89AFEE0964997F7A73E83BE698B288FEBCF88E3E03C4F0757EA8964E59B63D93708B138CC42A66EB3');
 
 -------------------------------------------------------------------------------
 procedure int_whirlpool_string
   ( input     in  varchar2,
     charset   in  varchar2,
+    rounds    in  binary_integer,
     rslt      out raw,
     err       out varchar2 )
 is language java
-name 'net.rubywillow.WhirlpoolRW.whirlpoolString(java.lang.String, java.lang.String, oracle.sql.RAW[], java.lang.String[])';
+name 'net.rubywillow.WhirlpoolRW.whirlpoolString(java.lang.String, java.lang.String, int, oracle.sql.RAW[], java.lang.String[])';
 -------------------------------------------------------------------------------
 function whirlpoolString
   ( input   in  varchar2,
-    charset in  varchar2 default 'UTF-8' )
+    charset in  varchar2 default 'UTF-8',
+    rounds  in  positiven default 1 )
   return raw deterministic
 is
   err    utl.text;
   rslt   raw(64);
 begin
-  if input is null then
-    return nullhash;
-  end if;
 
-  int_whirlpool_string(input, charset, rslt, err);
+  int_whirlpool_string(input, charset, rounds, rslt, err);
 
   utl.checkError(err);
 
@@ -59,23 +57,22 @@ end whirlpoolString;
 -------------------------------------------------------------------------------
 procedure int_whirlpool_raw
   ( input    in  raw,
+    rounds   in  binary_integer,
     rslt     out raw,
     err      out varchar2 )
 is language java
-name 'net.rubywillow.WhirlpoolRW.whirlpoolRaw(oracle.sql.RAW, oracle.sql.RAW[], java.lang.String[])';
+name 'net.rubywillow.WhirlpoolRW.whirlpoolRaw(oracle.sql.RAW, int, oracle.sql.RAW[], java.lang.String[])';
 -------------------------------------------------------------------------------
 function whirlpoolRaw
-  ( input  in   raw )
+  ( input  in   raw,
+    rounds in   positiven default 1 )
   return raw deterministic
 is
   err    utl.text;
   rslt   raw(64);
 begin
-  if input is null or utl_raw.length(input) = 0 then
-    return nullhash;
-  end if;
 
-  int_whirlpool_raw(input, rslt, err);
+  int_whirlpool_raw(input, rounds, rslt, err);
 
   utl.checkError(err);
 

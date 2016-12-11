@@ -32,27 +32,35 @@ package net.rubywillow;
 import java.io.*;
 import java.sql.Blob;
 import java.sql.Clob;
+import net.rubywillow.security.Whirlpool;
 
 public class WhirlpoolRW {
 
   static final int BUFF_SIZE = 8192; // manage in 8KB chunks
 
-  private static oracle.sql.RAW whirlpool( byte[] input ) {
-    byte[] digest = new byte[Whirlpool.DIGESTBYTES];
+  private static oracle.sql.RAW whirlpool( byte[] input, int rounds ) {
     Whirlpool w = new Whirlpool();
-    w.NESSIEinit();
-    w.NESSIEadd( input, input.length * 8 );
-    w.NESSIEfinalize( digest );
-    return new oracle.sql.RAW( digest );
+    w.add(input);
+    byte[] rslt;
+    if (rounds <= 1) {
+      rslt = w.digest();
+    } else {
+      rslt = w.digestRounds(rounds);
+    }
+    return new oracle.sql.RAW(rslt);
   }
 
   public static void whirlpoolString(
           String cleartext,
           String charset,
+          int rounds,
           oracle.sql.RAW[] rslt,
           String[] err ) {
     try {
-      rslt[0] = whirlpool( cleartext.getBytes( charset ) );
+      if (cleartext == null) {
+        cleartext = "";
+      }
+      rslt[0] = whirlpool( cleartext.getBytes( charset ), rounds );
     } catch ( Exception e ) {
       err[0] = Utility.fmtError( e );
     }
@@ -60,10 +68,17 @@ public class WhirlpoolRW {
 
   public static void whirlpoolRaw(
           oracle.sql.RAW cleartext,
+          int rounds,
           oracle.sql.RAW[] rslt,
           String[] err ) {
     try {
-      rslt[0] = whirlpool( (byte[]) cleartext.toJdbc() );
+      byte[] src;
+      if (cleartext != null) {
+        src = (byte[]) cleartext.toJdbc();
+      } else {
+        src = new byte[0];
+      }
+      rslt[0] = whirlpool( src, rounds );
     } catch ( Exception e ) {
       err[0] = Utility.fmtError( e );
     }
@@ -76,20 +91,15 @@ public class WhirlpoolRW {
           String[] err ) {
     try {
       int len;
-      byte[] digest = new byte[Whirlpool.DIGESTBYTES];
       char[] buffer = new char[BUFF_SIZE];
-      byte[] rawbuf;
       Reader instream = cleartext.getCharacterStream();
       Whirlpool w = new Whirlpool();
-      w.NESSIEinit();
       len = instream.read( buffer );
       while ( len > 0 ) {
-        rawbuf = new String( buffer, 0, len ).getBytes( charset );
-        w.NESSIEadd( rawbuf, rawbuf.length * 8 );
+        w.add( new String( buffer, 0, len ).getBytes( charset ) );
         len = instream.read( buffer );
       }
-      w.NESSIEfinalize( digest );
-      rslt[0] = new oracle.sql.RAW( digest );
+      rslt[0] = new oracle.sql.RAW( w.digest() );
     } catch ( Exception e ) {
       err[0] = Utility.fmtError( e );
     }
@@ -101,18 +111,15 @@ public class WhirlpoolRW {
           String[] err ) {
     try {
       int len;
-      byte[] digest = new byte[Whirlpool.DIGESTBYTES];
       byte[] buffer = new byte[BUFF_SIZE];
       InputStream instream = cleartext.getBinaryStream();
       Whirlpool w = new Whirlpool();
-      w.NESSIEinit();
       len = instream.read( buffer );
       while ( len > 0 ) {
-        w.NESSIEadd( buffer, len * 8 );
+        w.add( buffer );
         len = instream.read( buffer );
       }
-      w.NESSIEfinalize( digest );
-      rslt[0] = new oracle.sql.RAW( digest );
+      rslt[0] = new oracle.sql.RAW( w.digest() );
     } catch ( Exception e ) {
       err[0] = Utility.fmtError( e );
     }
